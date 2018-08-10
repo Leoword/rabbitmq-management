@@ -3,37 +3,37 @@
 //
 
 function message_rates(id, stats) {
-    var items = [['Publish', 'publish'],
-                 ['Publisher confirm', 'confirm'],
-                 ['Publish (In)', 'publish_in'],
-                 ['Publish (Out)', 'publish_out'],
-                 ['Deliver (manual ack)', 'deliver'],
-                 ['Deliver (auto ack)', 'deliver_no_ack'],
-                 ['Consumer ack', 'ack'],
-                 ['Redelivered', 'redeliver'],
-                 ['Get (manual ack)', 'get'],
-                 ['Get (auto ack)', 'get_no_ack'],
-                 ['Return', 'return_unroutable'],
-                 ['Disk read', 'disk_reads'],
-                 ['Disk write', 'disk_writes']];
-    return rates_chart_or_text(id, stats, items, fmt_rate, fmt_rate_axis, true, 'Message rates', 'message-rates');
+    var items = [['发布', 'publish'],
+                 ['发布者认证', 'confirm'],
+                 ['进入消息队列', 'publish_in'],
+                 ['出消息队列', 'publish_out'],
+                 ['交付 (手动配置应答)', 'deliver'],
+                 ['交付 (自动应答)', 'deliver_no_ack'],
+                 ['消息消费者应答', 'ack'],
+                 ['重发', 'redeliver'],
+                 ['获取 (手动配置应答)', 'get'],
+                 ['获取 (自动应答)', 'get_no_ack'],
+                 ['返回', 'return_unroutable'],
+                 ['磁盘读取', 'disk_reads'],
+                 ['磁盘写入', 'disk_writes']];
+    return rates_chart_or_text(id, stats, items, fmt_rate, fmt_rate_axis, true, '消息传输速率', 'message-rates');
 }
 
 function queue_lengths(id, stats) {
-    var items = [['Ready', 'messages_ready'],
-                 ['Unacked', 'messages_unacknowledged'],
-                 ['Total', 'messages']];
-    return rates_chart_or_text(id, stats, items, fmt_num_thousands, fmt_plain_axis, false, 'Queued messages', 'queued-messages');
+    var items = [['就绪', 'messages_ready'],
+                 ['等待', 'messages_unacknowledged'],
+                 ['全部', 'messages']];
+    return rates_chart_or_text(id, stats, items, fmt_num_thousands, fmt_plain_axis, false, '消息队列', 'queued-messages');
 }
 
 function data_rates(id, stats) {
     var items = [['From client', 'recv_oct'], ['To client', 'send_oct']];
-    return rates_chart_or_text(id, stats, items, fmt_rate_bytes, fmt_rate_bytes_axis, true, 'Data rates');
+    return rates_chart_or_text(id, stats, items, fmt_rate_bytes, fmt_rate_bytes_axis, true, '数据速率');
 }
 
 function data_reductions(id, stats) {
     var items = [['Reductions', 'reductions']];
-    return rates_chart_or_text(id, stats, items, fmt_rate, fmt_rate_axis, true, 'Reductions (per second)', 'process-reductions');
+    return rates_chart_or_text(id, stats, items, fmt_rate, fmt_rate_axis, true, '损耗（每秒）', 'process-reductions');
 }
 
 function rates_chart_or_text(id, stats, items, fmt, axis_fmt, chart_rates,
@@ -57,10 +57,10 @@ function rates_chart_or_text_no_heading(type_id, id, stats, items,
         else {
             res = rates_text(items, stats, mode, fmt, chart_rates);
         }
-        if (res == "") res = '<p>Waiting for data...</p>';
+        if (res == "") res = '<p> 等待数据… </p>';
     }
     else {
-        res = '<p>Currently idle</p>';
+        res = '<p>当前空闲</p>';
     }
     return res;
 }
@@ -82,10 +82,10 @@ function prefix_title(mode, range) {
         return desc.toLowerCase();
     }
     else if (mode == 'curr') {
-        return 'current value';
+        return '当前值';
     }
     else {
-        return 'moving average: ' + desc.toLowerCase();
+        return '平均值: ' + desc.toLowerCase();
     }
 }
 
@@ -93,7 +93,7 @@ function node_stat_count(used_key, limit_key, stats, thresholds) {
     var used = stats[used_key];
     var limit = stats[limit_key];
     if (typeof used == 'number') {
-        return node_stat(used_key, 'Used', limit_key, 'available', stats,
+        return node_stat(used_key, '已使用', limit_key, 'available', stats,
                          fmt_plain, fmt_plain_axis,
                          fmt_color(used / limit, thresholds));
     } else {
@@ -105,7 +105,7 @@ function node_stat_count_bar(used_key, limit_key, stats, thresholds) {
     var used = stats[used_key];
     var limit = stats[limit_key];
     if (typeof used == 'number') {
-        return node_stat_bar(used_key, limit_key, 'available', stats,
+        return node_stat_bar(used_key, limit_key, '可用', stats,
                              fmt_plain_axis,
                              fmt_color(used / limit, thresholds));
     } else {
@@ -116,7 +116,7 @@ function node_stat_count_bar(used_key, limit_key, stats, thresholds) {
 function node_stat(used_key, used_name, limit_key, suffix, stats, fmt,
                    axis_fmt, colour, help, invert) {
     if (get_pref('rate-mode-node-stats') == 'chart') {
-        var items = [[used_name, used_key], ['Limit', limit_key]];
+        var items = [[used_name, used_key], ['限制', limit_key]];
         add_fake_limit_details(used_key, limit_key, stats);
         return rates_chart('node-stats', 'node-stats-' + used_key, items, stats,
                            fmt, axis_fmt, 'node', false);
@@ -169,7 +169,7 @@ function node_stat_bar(used_key, limit_key, suffix, stats, fmt, colour,
 }
 
 function node_stats_prefs() {
-    return chart_h3('node-stats', 'Node statistics');
+    return chart_h3('node-stats', '节点统计结果');
 }
 
 function rates_chart(type_id, id, items, stats, fmt, axis_fmt, type,

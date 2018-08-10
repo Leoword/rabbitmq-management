@@ -1,6 +1,6 @@
-<h1>Users</h1>
+<h1>用户</h1>
 <div class="section">
-  <h2>All users</h2>
+  <h2>全部用户</h2>
   <div class="hider">
 <%= filter_ui(users) %>
   <div class="updatable">
@@ -8,10 +8,10 @@
 <table class="list">
   <thead>
     <tr>
-      <th><%= fmt_sort('Name', 'name') %></th>
-      <th><%= fmt_sort('Tags', 'tags') %></th>
-      <th>Can access virtual hosts</th>
-      <th>Has password</th>
+      <th><%= fmt_sort('姓名', 'name') %></th>
+      <th><%= fmt_sort('标签', 'tags') %></th>
+      <th>可以访问虚拟主机 </th>
+      <th>是否有密码</th>
     </tr>
   </thead>
   <tbody>
@@ -30,7 +30,7 @@
   </tbody>
 </table>
 <% } else { %>
-    <p>... no users ...</p>
+    <p>... 无用户 ...</p>
 <% } %>
     <p><span class="help" id="internal-users-only"></span></p>
   </div>
@@ -38,12 +38,12 @@
 </div>
 
 <div class="section-hidden">
-  <h2>Add a user</h2>
+  <h2>新增用户</h2>
   <div class="hider">
     <form action="#/users-add" method="put">
       <table class="form">
         <tr>
-          <th><label>Username:</label></th>
+          <th><label>用户名:</label></th>
           <td>
             <input type="text" name="username"/>
             <span class="mand">*</span>
@@ -53,8 +53,8 @@
           <th>
             <label>
               <select name="has-password" class="narrow controls-appearance">
-                <option value="password">Password:</option>
-                <option value="no-password">No password</option>
+                <option value="password">密码:</option>
+                <option value="no-password">无密码</option>
               </select>
             </label>
           </th>
@@ -64,35 +64,35 @@
               <span class="mand">*</span><br/>
               <input type="password" name="password_confirm" />
               <span class="mand">*</span>
-              (confirm)
+              (认证)
             </div>
             <div id="no-password-div" style="display: none;">
-              User cannot log in using password.
+             用户使用密码无法登录。
             </div>
           </td>
         </tr>
         <tr>
-          <th><label>Tags:</label></th>
+          <th><label>标签:</label></th>
           <td>
             <input type="text" name="tags" id="tags" />
             <span class="help" id="user-tags"/>
             <table class="argument-links">
               <tr>
-                <td>Set</td>
+                <td>设置</td>
                 <td>
-                  <span class="tag-link" tag="administrator">Admin</span> |
-                  <span class="tag-link" tag="monitoring">Monitoring</span> |
-                  <span class="tag-link" tag="policymaker">Policymaker</span><br />
-                  <span class="tag-link" tag="management">Management</span> |
-                  <span class="tag-link" tag="impersonator">Impersonator</span> |
-                  <span class="tag-link" tag="">None</span>
+                  <span class="tag-link" tag="管理员">管理员</span> |
+                  <span class="tag-link" tag="监测">监测</span> |
+                  <span class="tag-link" tag="决策者">决策者</span><br />
+                  <span class="tag-link" tag="管理">管理 </span> |
+                  <span class="tag-link" tag="冒名顶替者">冒名顶替者</span> |
+                  <span class="tag-link" tag="">无</span>
                 </td>
               </tr>
             </table>
           </td>
         </tr>
       </table>
-      <input type="submit" value="Add user"/>
+      <input type="submit" value="新增用户"/>
     </form>
   </div>
 </div>

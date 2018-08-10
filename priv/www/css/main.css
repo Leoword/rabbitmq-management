@@ -21,23 +21,23 @@ a:hover { color: #F60; }
 #debug { position: fixed; bottom: 0; z-index: 9; width: 100%; text-align: center; padding: 0; margin: 0; }
 #debug p { background: #F60; color: white; margin: 0; padding: 1em; font-size: 2em; }
 
-#header { background: white; position: fixed; z-index: 1; width: 95%; margin: auto; padding: 1em 0 0 0; border-bottom: 1px solid #666; }
+#header { display: none;background: white; position: fixed; z-index: 1; width: 95%; margin: auto; padding: 1em 0 0 0; border-bottom: 1px solid #666; }
 
 #topnav { float: right; padding: 0; margin: 0; list-style-type: none; }
 #topnav form { display: inline; }
 #topnav input[type=submit] { padding: 3px 7px; display: inline; }
 #topnav li { text-align: right; padding: 2px 0; }
 
-#menu ul { padding: 0; margin: 0; overflow: auto; }
+#menu ul { padding: 0; margin: 0; overflow: auto; position: absolute; bottom: 0px;}
 #menu li { float: left; list-style-type: none; padding: 0 0.1em 0 0; }
 #menu li a { display: block; padding: 0.7em 1.3em; margin-right: 5px; }
 #menu a:hover { background-color: #F60; color: white; -moz-border-radius: 8px 8px 0 0; border-radius: 8px 8px 0 0; }
 #menu a.selected { background-color: #666; color: white; -moz-border-radius: 8px 8px 0 0; border-radius: 8px 8px 0 0; }
 #vhost-form { float: right; padding: 0; margin: 0; }
 
-#main { padding-top: 10em; }
+#main { padding-top: 0; }
 #main.with-rhs { margin-right: 210px; }
-#rhs { float: right; width: 200px; background-color: white; position: relative; padding-top: 10em; }
+#rhs { float: right; width: 200px; background-color: white; position: relative; padding-top: 0;}
 #rhs ul { padding: 0; margin: 10px 0 0 0; }
 #rhs li { list-style-type: none; padding: 0; margin-bottom: 5px; }
 #rhs a { display: block; padding: 0.7em; font-weight: bold; text-decoration: none; }

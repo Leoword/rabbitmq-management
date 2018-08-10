@@ -1,14 +1,14 @@
-<h3>Deliveries</h3>
+<h3>传输</h3>
 <% if (object && object.length > 0) { %>
 <table class="list">
   <tr>
 <% if (mode == 'queue') { %>
-    <th>Channel</th>
+    <th>频道</th>
 <% } else { %>
-    <th>Queue</th>
+    <th>队列</th>
 <% } %>
-    <th>deliver / get</th>
-    <th>ack</th>
+    <th>传输 / 获取</th>
+    <th>正确应答</th>
   </tr>
 <%
    for (var i = 0; i < object.length; i++) {
@@ -26,5 +26,5 @@
 <% } %>
 </table>
 <% } else { %>
-<p> ... no deliveries ...</p>
+<p> ... 无传输 ...</p>
 <% } %>

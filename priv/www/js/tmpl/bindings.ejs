@@ -4,12 +4,12 @@
       <thead>
         <tr>
 <% if (mode == 'exchange_source') { %>
-          <th>To</th>
+          <th>目标</th>
 <% } else { %>
-          <th>From</th>
+          <th>来源</th>
 <% } %>
-          <th>Routing key</th>
-          <th>Arguments</th>
+          <th>路由键</th>
+          <th>参数</th>
           <th></th>
         </tr>
       </thead>
@@ -21,7 +21,7 @@
            <tr<%= alt_rows(i)%>>
 <% if (binding.source == '') { %>
              <td colspan="4">
-               (Default exchange binding)
+               (故障转换器)
              </td>
 <% } else { %>
 <% if (mode == 'queue' || mode == 'exchange_destination') { %>
@@ -62,5 +62,5 @@
     </table>
 
 <% } else { %>
-  <p>... no bindings ...</p>
+  <p>... 无连接 ...</p>
 <% } %>

@@ -1,6 +1,6 @@
-<h1>Exchanges</h1>
+<h1>交换机</h1>
 <div class="section">
-   <%= pagiante_ui(exchanges, 'exchanges') %>
+   <%= pagiante_ui(exchanges, '交换机') %>
 </div> 
 <div class="updatable">
 <% if (exchanges.items.length > 0) { %>
@@ -8,27 +8,27 @@
  <thead>
   <tr>
 <% if (vhosts_interesting) { %>
-   <th><%= fmt_sort('Virtual host', 'vhost') %></th>
+   <th><%= fmt_sort('虚拟主机', 'vhost') %></th>
 <% } %>
-   <th><%= fmt_sort('Name',         'name') %></th>
+   <th><%= fmt_sort('名称',         'name') %></th>
 <% if (show_column('exchanges', 'type')) { %>
-   <th><%= fmt_sort('Type',         'type') %></th>
+   <th><%= fmt_sort('类型',         'type') %></th>
 <% } %>
 <% if (show_column('exchanges', 'features')) { %>
-   <th>Features</th>
+   <th>特征</th>
 <% } %>
 <% if (show_column('exchanges', 'features_no_policy')) { %>
-   <th>Features</th>
+   <th>特征</th>
 <% } %>
 <% if (show_column('exchanges', 'policy')) { %>
-    <th><%= fmt_sort('Policy','policy') %></th>
+    <th><%= fmt_sort('策略','policy') %></th>
 <% } %>
 <% if (rates_mode != 'none') { %>
 <% if (show_column('exchanges', 'rate-in')) { %>
-   <th><%= fmt_sort('Message rate in',   'message_stats.publish_in_details.rate') %></th>
+   <th><%= fmt_sort('消息传入速率',   'message_stats.publish_in_details.rate') %></th>
 <% } %>
 <% if (show_column('exchanges', 'rate-out')) { %>
-   <th><%= fmt_sort('Message rate out',  'message_stats.publish_out_details.rate') %></th>
+   <th><%= fmt_sort('消息取出速率',  'message_stats.publish_out_details.rate') %></th>
 <% } %>
 <% } %>
     <th class="plus-minus"><span class="popup-options-link" title="Click to change columns" type="columns" for="exchanges">+/-</span></th>
@@ -74,20 +74,20 @@
  </tbody>
 </table>
 <% } else { %>
-  <p>... no exchanges ...</p>
+  <p>... 无交换机...</p>
 <% } %>
   </div>
   </div>
 </div>
 
 <div class="section-hidden">
-  <h2>Add a new exchange</h2>
+  <h2>添加交换机</h2>
   <div class="hider">
     <form action="#/exchanges" method="put">
       <table class="form">
 <% if (vhosts_interesting) { %>
         <tr>
-          <th><label>Virtual host:</label></th>
+          <th><label>虚拟机:</label></th>
           <td>
             <select name="vhost">
               <% for (var i = 0; i < vhosts.length; i++) { %>
@@ -100,11 +100,11 @@
         <tr><td><input type="hidden" name="vhost" value="<%= fmt_string(vhosts[0].name) %>"/></td></tr>
 <% } %>
         <tr>
-          <th><label>Name:</label></th>
+          <th><label>名称:</label></th>
           <td><input type="text" name="name"/><span class="mand">*</span></td>
         </tr>
         <tr>
-          <th><label>Type:</label></th>
+          <th><label>类型:</label></th>
           <td>
             <select name="type">
               <% for (var i = 0; i < exchange_types.length; i++) {
@@ -117,41 +117,41 @@
           </td>
         </tr>
         <tr>
-          <th><label>Durability:</label></th>
+          <th><label> 耐久性:</label></th>
           <td>
             <select name="durable">
-              <option value="true">Durable</option>
-              <option value="false">Transient</option>
+              <option value="true">耐用</option>
+              <option value="false">瞬态</option>
             </select>
           </td>
         </tr>
         <tr>
-          <th><label>Auto delete: <span class="help" id="exchange-auto-delete"></span></label></th>
+          <th><label>动态删除: <span class="help" id="exchange-auto-delete"></span></label></th>
           <td>
             <select name="auto_delete">
-              <option value="false">No</option>
-              <option value="true">Yes</option>
+              <option value="false">否</option>
+              <option value="true">是</option>
             </select>
           </td>
         </tr>
         <tr>
-          <th><label>Internal: <span class="help" id="exchange-internal"></span></label></th>
+          <th><label>内部: <span class="help" id="exchange-internal"></span></label></th>
           <td>
             <select name="internal">
-              <option value="false">No</option>
-              <option value="true">Yes</option>
+              <option value="false">否</option>
+              <option value="true">是</option>
             </select>
           </td>
         </tr>
         <tr>
-          <th><label>Arguments:</label></th>
+          <th><label>参数:</label></th>
           <td>
             <div class="multifield" id="arguments"></div>
             <table class="argument-links">
               <tr>
-                <td>Add</td>
+                <td>增加</td>
                 <td>
-                  <span class="argument-link" field="arguments" key="alternate-exchange" type="string">Alternate exchange</span>
+                  <span class="argument-link" field="arguments" key="alternate-exchange" type="string">交替交换</span>
                   <span class="help" id="exchange-alternate"></span>
                 </td>
               </tr>

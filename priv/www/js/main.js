@@ -262,6 +262,7 @@ function render(reqs, template, highlight) {
     current_template = template;
     current_reqs = reqs;
     for (var i in outstanding_reqs) {
+        console.log(outstanding_reqs);
         outstanding_reqs[i].abort();
     }
     outstanding_reqs = [];
@@ -535,7 +536,7 @@ function show_popup(type, text, _mode) {
 
 function submit_import(form) {
     if (form.file.value) {
-        var confirm_upload = confirm('Are you sure you want to import a definitions file? Some entities (vhosts, users, queues, etc) may be overwritten!');
+        var confirm_upload = confirm(' 确实要导入定义文件吗？某些实体（虚拟主机、用户、队列等）可能被改写！ ');
         if (confirm_upload === true) {
             var file = form.file.files[0]; // FUTURE: limit upload file size (?)
             var vhost_upload = $("select[name='vhost-upload'] option:selected");
@@ -555,7 +556,7 @@ function submit_import(form) {
             var fd = new FormData();
             fd.append('file', file);
             with_req('POST', form_action, fd, function(resp) {
-                show_popup('info', 'Your definitions were imported successfully.');
+                show_popup('info', '你的定义成功导入.');
             });
         }
     }
@@ -564,17 +565,16 @@ function submit_import(form) {
 
 function postprocess() {
     $('form.confirm-queue').submit(function() {
-        return confirm("Are you sure? The queue is going to be deleted. " +
-                       "Messages cannot be recovered after deletion.");
+        return confirm("你确定要删除这个队列？ " +
+                       "删除后消息不能恢复。");
         });
 
     $('form.confirm-purge-queue').submit(function() {
-        return confirm("Are you sure? Messages cannot be recovered after purging.");
+        return confirm("你确定清洗后消息不能恢复。");
         });
 
     $('form.confirm').submit(function() {
-            return confirm("Are you sure? This object cannot be recovered " +
-                           "after deletion.");
+            return confirm("你确定删除后对象不能恢复。");
         });
 
     $('label').map(function() {
@@ -874,10 +874,10 @@ function multifield_input(prefix, suffix, type) {
     else if (type == 'select' ) {
         return '<select id="' + prefix + '_mf' + suffix + '" name="' + prefix +
             '_mf' + suffix + '">' +
-            '<option value="string">String</option>' +
-            '<option value="number">Number</option>' +
-            '<option value="boolean">Boolean</option>' +
-            '<option value="list">List</option>' +
+            '<option value="string">字符串</option>' +
+            '<option value="number">数字</option>' +
+            '<option value="boolean">布尔</option>' +
+            '<option value="list">列表</option>' +
             '</select>';
     }
 }
@@ -1014,9 +1014,9 @@ function publish_msg0(params) {
     with_req('POST', path, JSON.stringify(params), function(resp) {
             var result = jQuery.parseJSON(resp.responseText);
             if (result.routed) {
-                show_popup('info', 'Message published.');
+                show_popup('info', '消息已发布。');
             } else {
-                show_popup('warn', 'Message published, but not routed.');
+                show_popup('warn', '消息已发布，但未路由。');
             }
         });
 }
@@ -1026,7 +1026,7 @@ function get_msgs(params) {
     with_req('POST', path, JSON.stringify(params), function(resp) {
             var msgs = jQuery.parseJSON(resp.responseText);
             if (msgs.length == 0) {
-                show_popup('info', 'Queue is empty');
+                show_popup('info', '队列为空');
             } else {
                 $('#msg-wrapper').slideUp(200);
                 replace_content('msg-wrapper', format('messages', {'msgs': msgs}));
@@ -1078,15 +1078,15 @@ function format(template, json) {
 function update_status(status) {
     var text;
     if (status == 'ok')
-        text = "Refreshed " + fmt_date(new Date());
+        text = "更新时间：" + fmt_date(new Date());
     else if (status == 'error') {
         var next_try = new Date(new Date().getTime() + timer_interval);
-        text = "Error: could not connect to server since " +
-            fmt_date(last_successful_connect) + ". Will retry at " +
+        text = "错误: 连接不到服务器从 " +
+            fmt_date(last_successful_connect) + ". 将重试 " +
             fmt_date(next_try) + ".";
     }
     else
-        throw("Unknown status " + status);
+        throw("未知状态 " + status);
 
     var html = format('status', {status: status, text: text});
     replace_content('status', html);
@@ -1220,7 +1220,7 @@ function check_bad_response(req, full_page_404) {
             if (last_page_out_of_range_error > 0)
                     seconds = (new Date().getTime() - last_page_out_of_range_error.getTime())/1000;
             if (seconds > 3) {
-                 Sammy.log('server reports page is out of range, redirecting to page 1');
+                 Sammy.log('服务器报表页超出范围，重定向到第1页。');
                  var contexts = ["queues", "exchanges", "connections", "channels"];
                  var matches = /api\/(.*)\?/.exec(req.responseURL);
                  if (matches != null && matches.length > 1) {
@@ -1246,7 +1246,7 @@ function check_bad_response(req, full_page_404) {
         update_status('error');
     }
     else {
-        debug("Management API returned status code " + req.status + " - <strong>" + fmt_escape_html_one_line(req.responseText) + "</strong>");
+        debug("管理接口返回状态代码 " + req.status + " - <strong>" + fmt_escape_html_one_line(req.responseText) + "</strong>");
         clearInterval(timer);
     }
 
@@ -1313,13 +1313,13 @@ function collapse_multifields(params0) {
         else if ((set(k) && top_level) || set(v)) {
             if (t == 'boolean') {
                 if (v != 'true' && v != 'false')
-                    throw(k + ' must be "true" or "false"; got ' + v);
+                    throw(k + ' 必须是 "true" 或"false";获取 ' + v);
                 val = (v == 'true');
             }
             else if (t == 'number') {
                 var n = parseFloat(v);
                 if (isNaN(n))
-                    throw(k + ' must be a number; got ' + v);
+                    throw(k + ' 必须是数字; 获取 ' + v);
                 val = n;
             }
             else {
@@ -1342,10 +1342,10 @@ function collapse_multifields(params0) {
 function check_password(params) {
     if (params['password'] != undefined) {
         if (params['password'] == '') {
-            throw("Please specify a password.");
+            throw("请确认密码！");
         }
         if (params['password'] != params['password_confirm']) {
-            throw("Passwords do not match.");
+            throw("密码不匹配！");
         }
         delete params['password_confirm'];
     }

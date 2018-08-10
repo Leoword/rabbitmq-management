@@ -1,40 +1,40 @@
-<h1>Node <b><%= node.name %></b></h1>
+<h1>节点 <b><%= node.name %></b></h1>
 <div class="updatable">
 
 <% if (!node.running) { %>
-<p class="warning">Node not running</p>
+<p class="warning">节点未运行</p>
 <% } else if (node.os_pid == undefined) { %>
-<p class="warning">Node statistics not available</p>
+<p class="warning">节点统计不可用</p>
 <% } else { %>
 
 <div class="section">
-<h2>Overview</h2>
+<h2>概览</h2>
 <div class="hider">
   <div class="box">
   <table class="facts facts-l">
     <tr>
-      <th>Uptime</th>
+      <th>正常运行时间</th>
       <td><%= fmt_uptime(node.uptime) %></td>
     </tr>
-<% if (rabbit_versions_interesting) { %>
+<!-- <% if (rabbit_versions_interesting) { %>
     <tr>
       <th>RabbitMQ Version</th>
       <td><%= fmt_rabbit_version(node.applications) %></td>
     </tr>
-<% } %>
+<% } %> -->
     <tr>
-      <th>Type</th>
+      <th>类型</th>
       <td>
        <% if (node.type == 'disc') { %>
-         <abbr title="Broker definitions are held on disc.">Disc</abbr>
+         <abbr title="定义在磁盘上保存。">磁盘</abbr>
        <% } else { %>
-         <abbr title="Broker definitions are held in RAM. Messages will still be written to disc if necessary.">RAM</abbr>
+         <abbr title="定义保存在RAM中。如果需要，消息仍将写入磁盘。">内存</abbr>
        <% } %>
       </td>
     </tr>
     <tr>
       <th>
-        <a href="http://www.rabbitmq.com/configure.html" target="_blank">Config file</a>
+        配置文件
       </th>
       <td>
   <%
@@ -46,7 +46,7 @@
       </td>
     </tr>
     <tr>
-      <th>Database directory</th>
+      <th>数据库目录</th>
       <td>
         <code><%= node.db_dir %></code>
       </td>
@@ -54,9 +54,9 @@
     <tr>
       <th>
 <% if (node.log_files.length == 1) { %>
-        Log file
+        日志文件
 <% } else { %>
-        Log files
+        日志文件
 <% } %>
       </th>
       <td>
@@ -73,26 +73,26 @@
 </div>
 
 <div class="section">
-<h2>Process statistics</h2>
+<h2>过程统计</h2>
 <div class="hider">
   <%= node_stats_prefs() %>
   <table class="facts">
     <tr>
       <th>
-        File descriptors <span class="help" id="file-descriptors"></span>
+        文件描述 <span class="help" id="file-descriptors"></span>
       </th>
       <td>
 <% if (node.fd_used != 'install_handle_from_sysinternals') { %>
         <%= node_stat_count('fd_used', 'fd_total', node, FD_THRESHOLDS) %>
 <% } else { %>
-        <p class="c">handle.exe missing <span class="help" id="handle-exe"></span><sub><%= node.fd_total %> available</sub></p>
+        <p class="c">缺少文件 <span class="help" id="handle-exe"></span><sub><%= node.fd_total %> 可获得</sub></p>
 
 <% } %>
       </td>
     </tr>
     <tr>
       <th>
-        Socket descriptors <span class="help" id="socket-descriptors"></span>
+        套接字描述 <span class="help" id="socket-descriptors"></span>
       </th>
       <td>
         <%= node_stat_count('sockets_used', 'sockets_total', node, FD_THRESHOLDS) %>
@@ -100,7 +100,7 @@
     </tr>
     <tr>
       <th>
-        Erlang processes
+        进程
       </th>
      <td>
         <%= node_stat_count('proc_used', 'proc_total', node, PROCESS_THRESHOLDS) %>
@@ -108,11 +108,11 @@
     </tr>
     <tr>
       <th>
-        Memory <span class="help" id="memory-calculation-strategy"></span>
+        内存 <span class="help" id="memory-calculation-strategy"></span>
       </th>
       <td>
 <% if (node.mem_limit != 'memory_monitoring_disabled') { %>
-   <%= node_stat('mem_used', 'Used', 'mem_limit', 'high watermark', node,
+   <%= node_stat('mem_used', '已使用', 'mem_limit', 'high watermark', node,
                  fmt_bytes, fmt_bytes_axis,
                  node.mem_alarm ? 'red' : 'green',
                  node.mem_alarm ? 'memory-alarm' : null) %>
@@ -123,17 +123,17 @@
     </tr>
     <tr>
       <th>
-        Disk space
+     磁盘空间 
       </th>
       <td>
 <% if (node.disk_free_limit != 'disk_free_monitoring_disabled') { %>
-   <%= node_stat('disk_free', 'Free', 'disk_free_limit', 'low watermark', node,
+   <%= node_stat('disk_free', '空闲', 'disk_free_limit', 'low watermark', node,
                  fmt_bytes, fmt_bytes_axis,
                  node.disk_free_alarm ? 'red' : 'green',
                  node.disk_free_alarm ? 'disk_free-alarm' : null,
                  true) %>
 <% } else { %>
-         (not available)
+         (不可得)
 <% } %>
       </td>
     </tr>
@@ -142,64 +142,64 @@
 </div>
 
 <div class="section-hidden">
-<h2>Persistence statistics</h2>
+<h2>持久性统计</h2>
 <div class="hider">
   <%= rates_chart_or_text('mnesia-stats-count', node,
-      [['RAM only', 'mnesia_ram_tx_count'],
-       ['Disk', 'mnesia_disk_tx_count']],
-      fmt_rate, fmt_rate_axis, true, 'Mnesia transactions', 'mnesia-transactions') %>
+      [['仅限内存', 'mnesia_ram_tx_count'],
+       ['磁盘', 'mnesia_disk_tx_count']],
+      fmt_rate, fmt_rate_axis, true, '事务', 'mnesia-transactions') %>
 
   <%= rates_chart_or_text('persister-msg-stats-count', node,
-      [['QI Journal', 'queue_index_journal_write_count'],
-       ['Store Read', 'msg_store_read_count'],
-       ['Store Write', 'msg_store_write_count']],
-      fmt_rate, fmt_rate_axis, true, 'Persistence operations (messages)', 'persister-operations-msg') %>
+      [['日志', 'queue_index_journal_write_count'],
+       ['读存储', 'msg_store_read_count'],
+       ['写存储', 'msg_store_write_count']],
+      fmt_rate, fmt_rate_axis, true, '持久化操作（消息）', 'persister-operations-msg') %>
 
   <%= rates_chart_or_text('persister-bulk-stats-count', node,
-      [['QI Read', 'queue_index_read_count'],
-       ['QI Write', 'queue_index_write_count']],
-      fmt_rate, fmt_rate_axis, true, 'Persistence operations (bulk)', 'persister-operations-bulk') %>
+      [['读日志', 'queue_index_read_count'],
+       ['写日志', 'queue_index_write_count']],
+      fmt_rate, fmt_rate_axis, true, '批量持久化操作', 'persister-operations-bulk') %>
 </div>
 </div>
 
 <div class="section-hidden">
-<h2>I/O statistics</h2>
+<h2>输入输出统计</h2>
 <div class="hider">
   <%= rates_chart_or_text('persister-io-stats-count', node,
-      [['Read', 'io_read_count'],
-       ['Write', 'io_write_count'],
-       ['Seek', 'io_seek_count'],
-       ['Sync', 'io_sync_count'],
-       ['File handle reopen', 'io_reopen_count'],
-       ['File handle open attempt', 'io_file_handle_open_attempt_count']],
-      fmt_rate, fmt_rate_axis, true, 'I/O operations', 'io-operations') %>
+      [['读', 'io_read_count'],
+       ['写', 'io_write_count'],
+       ['查找', 'io_seek_count'],
+       ['同步', 'io_sync_count'],
+       ['文件句柄重开', 'io_reopen_count'],
+       ['文件句柄打开尝试', 'io_file_handle_open_attempt_count']],
+      fmt_rate, fmt_rate_axis, true, '输入输出操作', 'io-operations') %>
 
   <%= rates_chart_or_text('persister-io-stats-bytes', node,
-      [['Read', 'io_read_bytes'],
-       ['Write', 'io_write_bytes']],
-      fmt_rate_bytes, fmt_rate_bytes_axis, true, 'I/O data rates') %>
+      [['读', 'io_read_bytes'],
+       ['写', 'io_write_bytes']],
+      fmt_rate_bytes, fmt_rate_bytes_axis, true, '输入输出数据速率') %>
 
   <%= rates_chart_or_text('persister-io-stats-time', node,
-      [['Read', 'io_read_avg_time'],
-       ['Write', 'io_write_avg_time'],
-       ['Seek', 'io_seek_avg_time'],
-       ['Sync', 'io_sync_avg_time'],
-       ['File handle open attempt', 'io_file_handle_open_attempt_avg_time']],
-      fmt_ms, fmt_ms, false, 'I/O average time per operation') %>
+      [['读', 'io_read_avg_time'],
+       ['写', 'io_write_avg_time'],
+       ['查找', 'io_seek_avg_time'],
+       ['同步', 'io_sync_avg_time'],
+       ['文件句柄打开尝试', 'io_file_handle_open_attempt_avg_time']],
+      fmt_ms, fmt_ms, false, '输入输出操作平均时间') %>
 </div>
 </div>
 
 <div class="section-hidden">
-<h2>Cluster links</h2>
+<h2>集群连接</h2>
 <div class="hider">
 <% if (node.cluster_links.length > 0) { %>
 <table class="list">
   <tr>
-    <th>Remote node</th>
-    <th>Local address</th>
-    <th>Local port</th>
-    <th>Remote address</th>
-    <th>Remote port</th>
+    <th>远程节点</th>
+    <th>本地地址</th>
+    <th>本地端口</th>
+    <th>远程地址</th>
+    <th>远程端口</th>
     <th class="plain">
       <%= chart_h3('cluster-link-data-rates', 'Data rates') %>
     </th>
@@ -218,15 +218,15 @@
        <%= rates_chart_or_text_no_heading(
            'cluster-link-data-rates', 'cluster-link-data-rates' + link.name,
            link.stats,
-           [['Recv', 'recv_bytes'],
-            ['Send', 'send_bytes']],
+           [['接收', 'recv_bytes'],
+            ['发送', 'send_bytes']],
            fmt_rate_bytes, fmt_rate_bytes_axis, true) %>
      </td>
    </tr>
 <% } %>
 </table>
 <% } else { %>
-  <p>... no cluster links ...</p>
+  <p>... 无集群连接 ...</p>
 <% } %>
 </div>
 </div>
@@ -243,22 +243,21 @@
 <% if (node.running && node.os_pid != undefined) { %>
 
 <div class="section">
-<h2>Memory details</h2>
+<h2>内存信息</h2>
 <div class="hider">
   <div id="memory-details"></div>
-  <button class="update-manual memory-button" for="memory-details" query="memory">Update</button>
+  <button class="update-manual memory-button" for="memory-details" query="memory">更新</button>
 </div>
 </div>
 
 <div class="section-hidden">
-<h2>Binary references</h2>
+<h2>二进制引用</h2>
 <div class="hider">
   <p>
-    <b>Warning:</b> Calculating binary memory use can be expensive if
-    there are many small binaries in the system.
+    <b>警告:</b> 如果系统中有许多小二进制文件，计算二进制内存的使用是昂贵的。
   </p>
   <div id="binary-details"></div>
-  <button class="update-manual memory-button" for="binary-details" query="binary">Update</button>
+  <button class="update-manual memory-button" for="binary-details" query="binary">更新</button>
 </div>
 </div>
 
@@ -268,51 +267,51 @@
 <% if (node.running && node.os_pid != undefined) { %>
 
 <div class="section-hidden">
-<h2>Advanced</h2>
+<h2>高级选项</h2>
 <div class="hider">
   <div class="box">
-  <h3>VM</h3>
+  <h3>虚拟主机</h3>
   <table class="facts">
     <tr>
-      <th>OS pid</th>
+      <th>操作系统</th>
       <td><%= node.os_pid %></td>
     </tr>
     <tr>
-      <th>Rates mode</th>
+      <th>数量模式</th>
       <td><%= node.rates_mode %></td>
     </tr>
     <tr>
-      <th>Net ticktime</th>
+      <th>网络时间</th>
       <td><%= node.net_ticktime %>s</td>
     </tr>
   </table>
 
   <table class="facts">
     <tr>
-      <th>Run queue</th>
+      <th>运行队列</th>
       <td><%= node.run_queue %></td>
     </tr>
     <tr>
-      <th>Processors</th>
+      <th>进程</th>
       <td><%= node.processors %></td>
     </tr>
   </table>
   </div>
 
   <%= rates_chart_or_text('advanced-gc-stats-count', node,
-      [['GC', 'gc_num']],
-      fmt_rate, fmt_rate_axis, true, 'GC operations', 'gc-operations') %>
+      [['垃圾回收', 'gc_num']],
+      fmt_rate, fmt_rate_axis, true, '垃圾回收操作', 'gc-operations') %>
 
   <%= rates_chart_or_text('advanced-gc-bytes-stats-count', node,
-      [['GC bytes reclaimed', 'gc_bytes_reclaimed']],
-      fmt_rate, fmt_rate_axis, true, 'GC bytes reclaimed', 'gc-bytes') %>
+      [['字节垃圾回收', 'gc_bytes_reclaimed']],
+      fmt_rate, fmt_rate_axis, true, '字节垃圾回收', 'gc-bytes') %>
 
   <%= rates_chart_or_text('advanced-context-switches-stats-count', node,
-      [['Context switches', 'context_switches']],
-      fmt_rate, fmt_rate_axis, true, 'Context switch operations', 'context-switches-operations') %>
+      [['上下文切换操作', 'context_switches']],
+      fmt_rate, fmt_rate_axis, true, '上下文切换操作', 'context-switches-operations') %>
 
 <div class="box">
-  <h3>Management GC queue length</h3>
+  <h3>垃圾回收队列长度</h3>
   <table class="facts">
     <% for(var k in node.metrics_gc_queue_length) { 
          if(node.metrics_gc_queue_length.hasOwnProperty(k)) { %>
@@ -324,12 +323,12 @@
   </table>
 </div>
 
-<h3>Plugins <span class="help" id="plugins"></span></h3>
+<!-- <h3>插件 <span class="help" id="plugins"></span></h3>
 <table class="list">
   <tr>
-    <th>Name</th>
-    <th>Version</th>
-    <th>Description</th>
+    <th>名称</th>
+    <th>版本</th>
+    <th>描述</th>
   </tr>
   <%
      var plugins = get_plugins_list(node);
@@ -342,14 +341,14 @@
            <td><%= application.description %></td>
          </tr>
   <% } %>
-</table>
+</table> -->
 
-<h3>All applications</h3>
+<!-- <h3>全部应用</h3>
 <table class="list">
     <tr>
-      <th>Name</th>
-      <th>Version</th>
-      <th>Description</th>
+      <th>名称</th>
+      <th>版本</th>
+      <th>描述</th>
     </tr>
     <%
       for (var j = 0; j < node.applications.length; j++) {
@@ -363,10 +362,10 @@
     <% } %>
 </table>
 
-<h3>Exchange types</h3>
+<h3>交换机类型</h3>
 <%= format('registry', {'list': node.exchange_types, 'node': node, 'show_enabled': false} ) %>
-<h3>Authentication mechanisms</h3>
-<%= format('registry', {'list': node.auth_mechanisms, 'node': node, 'show_enabled': true} ) %>
+<h3>认证机制</h3>
+<%= format('registry', {'list': node.auth_mechanisms, 'node': node, 'show_enabled': true} ) %> -->
 
 </div>
 </div>

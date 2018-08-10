@@ -28,3 +28,11 @@ variables-ct*
 *.coverdata
 
 test/config_schema_SUITE_data/schema/
+
+package.json
+
+build
+
+node_modules/
+
+package-lock.json

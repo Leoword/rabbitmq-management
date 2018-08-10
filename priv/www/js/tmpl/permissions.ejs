@@ -1,19 +1,19 @@
 <div class="section">
-  <h2>Permissions</h2>
+  <h2>权限</h2>
   <div class="hider">
-    <h3>Current permissions</h3>
+    <h3>当前权限</h3>
     <% if (permissions.length > 0) { %>
     <table class="list">
       <thead>
         <tr>
 <% if (mode == 'vhost') { %>
-          <th>User</th>
+          <th>用户</th>
 <% } else { %>
-          <th>Virtual host</th>
+          <th>虚拟主机</th>
 <% } %>
-          <th>Configure regexp</th>
-          <th>Write regexp</th>
-          <th>Read regexp</th>
+          <th>配置正则表达式</th>
+          <th>写正则表达式</th>
+          <th>读正则表达式</th>
           <th></th>
         </tr>
       </thead>
@@ -35,7 +35,7 @@ for (var i = 0; i < permissions.length; i++) {
                <form action="#/permissions" method="delete" class="confirm">
                  <input type="hidden" name="username" value="<%= fmt_string(permission.user) %>"/>
                  <input type="hidden" name="vhost" value="<%= fmt_string(permission.vhost) %>"/>
-                 <input type="submit" value="Clear"/>
+                 <input type="submit" value="清空"/>
                </form>
              </td>
            </tr>
@@ -43,15 +43,15 @@ for (var i = 0; i < permissions.length; i++) {
       </tbody>
     </table>
     <% } else { %>
-      <p>... no permissions ...</p>
+      <p>... 无权限 ...</p>
     <% } %>
 
-    <h3>Set permission</h3>
+    <h3>设置权限</h3>
     <form action="#/permissions" method="put">
       <table class="form">
         <tr>
 <% if (mode == 'vhost') { %>
-          <th>User</th>
+          <th>用户</th>
           <td>
             <input type="hidden" name="vhost" value="<%= fmt_string(parent.name) %>"/>
             <select name="username">
@@ -61,7 +61,7 @@ for (var i = 0; i < permissions.length; i++) {
             </select>
           </td>
 <% } else { %>
-          <th><label>Virtual Host:</label></th>
+          <th><label>虚拟主机:</label></th>
           <td>
             <input type="hidden" name="username" value="<%= fmt_string(parent.name) %>"/>
             <select name="vhost">
@@ -73,19 +73,19 @@ for (var i = 0; i < permissions.length; i++) {
 <% } %>
         </tr>
         <tr>
-          <th><label>Configure regexp:</label></th>
+          <th><label>配置正则表达式:</label></th>
           <td><input type="text" name="configure" value=".*"/></td>
         </tr>
         <tr>
-          <th><label>Write regexp:</label></th>
+          <th><label>写正则表达式:</label></th>
           <td><input type="text" name="write" value=".*"/></td>
         </tr>
         <tr>
-          <th><label>Read regexp:</label></th>
+          <th><label>读正则表达式:</label></th>
           <td><input type="text" name="read" value=".*"/></td>
         </tr>
       </table>
-      <input type="submit" value="Set permission"/>
+      <input type="submit" value="设置权限"/>
     </form>
   </div>
 </div>

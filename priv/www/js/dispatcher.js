@@ -271,8 +271,8 @@ dispatcher_add(function(sammy) {
     sammy.put('#/limits', function() {
         var valAsInt = parseInt(this.params.value);
         if (isNaN(valAsInt)) {
-            var e = 'Validation failed\n\n' +
-                this.params.name + ' should be a number, actually was "' +
+            var e = '验证失败\n\n' +
+                this.params.name + ' 应该是个数字，但实际是 "' +
                 this.params.value + '"';
             show_popup('warn', fmt_escape_html(e));
         } else {

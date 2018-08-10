@@ -1,7 +1,7 @@
 <% if (mode == 'queue') { %>
-    <h3 style="padding-top: 20px;">Add binding to this queue</h3>
+    <h3 style="padding-top: 20px;">增加到队列的绑定</h3>
 <% } else { %>
-    <h3 style="padding-top: 20px;">Add binding from this exchange</h3>
+    <h3 style="padding-top: 20px;">增加到交换机的绑定</h3>
 <% } %>
     <form action="#/bindings" method="post">
             <input type="hidden" name="vhost" value="<%= fmt_string(parent.vhost) %>"/>
@@ -14,7 +14,7 @@
 <% if (mode == 'queue') { %>
               <tr>
                 <th>
-                  <label>From exchange:</label>
+                  <label>从交换机:</label>
                 </th>
                 <td>
                   <input type="hidden" name="destination_type" value="q"/>
@@ -26,8 +26,8 @@
               <tr>
                 <th>
                   <select name="destination_type" class="narrow">
-                    <option value="e">To exchange</option>
-                    <option value="q" selected="selected">To queue</option>
+                    <option value="e">到交换机</option>
+                    <option value="q" selected="selected">到队列</option>
                   </select>:
                 </th>
                 <td>
@@ -37,13 +37,13 @@
               </tr>
 <% } %>
               <tr>
-                <th><label>Routing key:</label></th>
+                <th><label>路由键:</label></th>
                 <td><input type="text" name="routing_key" value=""/></td>
               </tr>
               <tr>
-                <th><label>Arguments:</label></th>
+                <th><label>参数:</label></th>
                 <td><div class="multifield" id="arguments"></div></td>
               </tr>
             </table>
-      <input type="submit" value="Bind"/>
+      <input type="submit" value="绑定"/>
     </form>

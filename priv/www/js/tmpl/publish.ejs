@@ -1,5 +1,5 @@
 <div class="section-hidden">
-  <h2>Publish message</h2>
+  <h2>发布消息</h2>
   <div class="hider">
     <form action="#/exchanges/publish" method="post">
 <% if (mode == 'queue') { %>
@@ -13,27 +13,27 @@
       <table class="form">
 <% if (mode == 'queue') { %>
         <tr>
-          <td colspan="2"><input type="hidden" name="routing_key" value="<%= fmt_string(queue.name) %>"/> Message will be published to the default exchange with routing key <strong><%= fmt_string(queue.name) %></strong>, routing it to this queue.</td>
+          <td colspan="2"><input type="hidden" name="routing_key" value="<%= fmt_string(queue.name) %>"/> 消息将以路由键发布到默认交换机<strong><%= fmt_string(queue.name) %></strong>, 将其路由到该队列</td>
         </tr>
 <% } else { %>
         <tr>
-          <th><label>Routing key:</label></th>
+          <th><label>路由键y:</label></th>
           <td><input type="text" name="routing_key" value=""/></td>
         </tr>
 <% } %>
         <tr>
-          <th><label>Delivery mode:</label></th>
+          <th><label>传输模式:</label></th>
           <td>
             <select name="delivery_mode">
-              <option value="1">1 - Non-persistent</option>
-              <option value="2">2 - Persistent</option>
+              <option value="1">1 - 非持久</option>
+              <option value="2">2 - 持久</option>
             </select>
           </td>
         </tr>
         <tr>
           <th>
             <label>
-              Headers:
+              头部:
               <span class="help" id="message-publish-headers"></span>
             </label>
           </th>
@@ -44,7 +44,7 @@
         <tr>
           <th>
             <label>
-              Properties:
+              特性:
               <span class="help" id="message-publish-properties"></span>
             </label>
           </th>
@@ -53,11 +53,11 @@
           </td>
         </tr>
         <tr>
-          <th><label>Payload:</label></th>
+          <th><label>有效载荷:</label></th>
           <td><textarea name="payload"></textarea></td>
         </tr>
       </table>
-      <input type="submit" value="Publish message" />
+      <input type="submit" value="发布消息" />
     </form>
   </div>
 </div>

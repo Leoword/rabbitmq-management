@@ -30,54 +30,54 @@
 <div class="box">
 <%
 var key = [[{name: 'Queues', colour: 'queue',
-             keys: [['queue_procs',         'queues'],
-                    ['queue_slave_procs',   'slaves']]},
+             keys: [['queue_procs',         '队列'],
+                    ['queue_slave_procs',   '原型']]},
             {name: 'Binaries', colour: 'binary',
              keys: [['binary',              '']]}],
 
            [{name: 'Connections', colour: 'conn',
-             keys: [['connection_readers',  'readers'],
-                    ['connection_writers',  'writers'],
-                    ['connection_channels', 'channels'],
-                    ['connection_other',    'other']]}],
+             keys: [['connection_readers',  '读'],
+                    ['connection_writers',  '写'],
+                    ['connection_channels', '频道'],
+                    ['connection_other',    '其他']]}],
 
            [{name: 'Tables', colour: 'table',
-             keys: [['mnesia',              'internal database tables'],
-                    ['msg_index',           'message store index'],
-                    ['mgmt_db',             'management database'],
-                    ['other_ets',           'other']]}],
+             keys: [['mnesia',              '内部数据库表格'],
+                    ['msg_index',           '信息存储索引'],
+                    ['mgmt_db',             '管理数据库'],
+                    ['other_ets',           '其他']]}],
 
            [{name: 'Processes', colour: 'proc',
-             keys: [['plugins',             'plugins'],
-                    ['other_proc',          'other']]},
+             keys: [['plugins',             '插件'],
+                    ['other_proc',          '其他']]},
             {name: 'System', colour: 'system',
-             keys: [['code',                'code'],
-                    ['atom',                'atoms'],
-                    ['other_system',        'other']
+             keys: [['code',                '编码'],
+                    ['atom',                '微粒'],
+                    ['other_system',        '其他']
                     ]}],
 
             [{name: 'Preallocated memory', colour: 'unused',
-              keys: [['allocated_unused',     'preallocated by runtime, unused'],
-                     ['reserved_unallocated', 'unallocated, reserved by the OS']]}]];
+              keys: [['allocated_unused',     '由运行时预分配，未使用'],
+                     ['reserved_unallocated', '未分配的，由OS保留的']]}]];
 %>
 <%= format('memory-table', {key: key, memory: memory}) %>
 </div>
 
 <div class="memory-info">
-  Last updated: <b><%= fmt_date(new Date()) %></b>.<br/>
-  Memory calculation strategy: <b><%= memory.strategy %></b>. <span class="help" id="memory-calculation-strategy-breakdown"></span><br/><br/>
-  Amount of memory used vs. allocated during last update: <span class="help" id="memory-use"></span><br/>
+  上一次更新: <b><%= fmt_date(new Date()) %></b>.<br/>
+  内存计算策略: <b><%= memory.strategy %></b>. <span class="help" id="memory-calculation-strategy-breakdown"></span><br/><br/>
+  上次更新时使用的内存量与分配量: <span class="help" id="memory-use"></span><br/>
   <table class="facts">
       <tr>
-        <th>Runtime Used</th>
+        <th>运行时使用</th>
         <td><%= fmt_bytes(memory.total.erlang) %></td>
       </tr>
       <tr>
-        <th>Runtime Allocated</th>
+        <th>分配的运行时间 </th>
         <td><%= fmt_bytes(memory.total.allocated) %></td>
       </tr>
       <tr>
-        <th>Resident Set Size (RSS) reported by the OS</th>
+        <th>操作系统报告的驻留集大小（RSS）</th>
         <td><%= fmt_bytes(memory.total.rss) %></td>
       </tr>
     </table>

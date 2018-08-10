@@ -1,5 +1,5 @@
-<h1>Overview</h1>
-<% if (user_monitor) { %>
+<h1>概览</h1>
+<!-- <% if (user_monitor) { %>
 <%= format('partition', {'nodes': nodes}) %>
 <% } %>
 
@@ -26,10 +26,10 @@
   Virtual host <b><%= vhosts[i].name %></b> experienced an error on node <b><%= vhost_status_node %></b> and may be inaccessible
 </p>
 <% }}} %>
-</div>
+</div> -->
 
 <div class="section">
-<h2>Totals</h2>
+<h2>情况统计</h2>
 <div class="hider updatable">
 <%= queue_lengths('lengths-over', overview.queue_totals) %>
 <% if (rates_mode != 'none') { %>
@@ -37,24 +37,24 @@
 <% } %>
 
 <% if (overview.object_totals) { %>
-  <h3>Global counts <span class="help" id="resource-counts"></span></h3>
+  <h3>全部计数 <span class="help" id="resource-counts"></span></h3>
 
   <ul id="global-counts">
     <li>
-      <a href="#/connections" class="button">Connections: <strong><%= overview.object_totals.connections %></strong></a>
+      <a href="#/connections" class="button">连接: <strong><%= overview.object_totals.connections %></strong></a>
     </li>
     <li>
-      <a href="#/channels" class="button">Channels: <strong><%= overview.object_totals.channels %></strong></a>
+      <a href="#/channels" class="button">频道: <strong><%= overview.object_totals.channels %></strong></a>
     </li>
     <li>
-      <a href="#/exchanges" class="button">Exchanges: <strong><%= overview.object_totals.exchanges %></strong></a>
+      <a href="#/exchanges" class="button">交换机: <strong><%= overview.object_totals.exchanges %></strong></a>
     </li>
     <li>
-      <a href="#/queues" class="button">Queues: <strong><%= overview.object_totals.queues %></strong></a>
+      <a href="#/queues" class="button">队列: <strong><%= overview.object_totals.queues %></strong></a>
     </li>
 <% if (overview.object_totals['consumers'] != undefined) { %>
     <li>
-      <a href="#" class="button disabled">Consumers: <strong><%= overview.object_totals.consumers %></strong></a>
+      <a href="#" class="button disabled">消息消费者: <strong><%= overview.object_totals.consumers %></strong></a>
     </li>
 <% } %>
   </ul>
@@ -65,36 +65,36 @@
 
 <% if (user_monitor) { %>
 <div class="section">
-<h2>Nodes</h2>
+<h2>节点</h2>
 
 <div class="hider updatable">
 
 <table class="list">
   <tr>
-    <th>Name</th>
+    <th>名称</th>
   <% if (show_column('overview', 'file_descriptors')) { %>
-    <th>File descriptors <span class="help" id="file-descriptors"></span></th>
+    <th>文件描述符 <span class="help" id="file-descriptors"></span></th>
   <% } %>
   <% if (show_column('overview', 'socket_descriptors')) { %>
-    <th>Socket descriptors <span class="help" id="socket-descriptors"></span></th>
+    <th>套接字描述 <span class="help" id="socket-descriptors"></span></th>
   <% } %>
   <% if (show_column('overview', 'erlang_processes')) { %>
-    <th>Erlang processes</th>
+    <th>Erlang 进程</th>
   <% } %>
   <% if (show_column('overview', 'memory')) { %>
-    <th>Memory <span class="help" id="memory-calculation-strategy"></span></th>
+    <th>内存 <span class="help" id="memory-calculation-strategy"></span></th>
   <% } %>
   <% if (show_column('overview', 'disk_space')) { %>
-    <th>Disk space</th>
+    <th>磁盘空间</th>
   <% } %>
   <% if (show_column('overview', 'uptime')) { %>
-    <th>Uptime</th>
+    <th>正常运行时间</th>
   <% } %>
   <% if (show_column('overview', 'info')) { %>
-    <th>Info</th>
+    <th>信息</th>
   <% } %>
   <% if (user_administrator && show_column('overview', 'reset_stats')) { %>
-    <th>Reset stats</th>
+    <th>重置统计 </th>
   <% } %>
     <th class="plus-minus"><span class="popup-options-link" title="Click to change columns" type="columns" for="overview">+/-</span></th>
   </tr>
@@ -107,21 +107,21 @@
    <tr<%= alt_rows(i)%>>
      <td>
        <a href="#/nodes/<%= esc(node.name) %>" class="button"><%= fmt_node(node.name) %></a>
-       <% if (rabbit_versions_interesting) { %>
+       <!-- <% if (rabbit_versions_interesting) { %>
          <sub>RabbitMQ <%= fmt_rabbit_version(node.applications) %></sub>
-       <% } %>
+       <% } %> -->
      </td>
 <% if (!node.running) { %>
      <td colspan="<%= colspan %>">
        <div class="status-red">
-         Node not running
+         节点未运行
        </div>
      </td>
 <% } else if (node.os_pid == undefined) { %>
      <td colspan="<%= colspan %>">
        <div class="status-yellow">
          <abbr title="The rabbitmq_management_agent plugin should be enabled on this node. If it is not, various statistics will be inaccurate.">
-           Node statistics not available</abbr>
+            节点统计不可用</abbr>
        </div>
      </td>
 <% } else { %>
@@ -130,7 +130,7 @@
     <% if (node.fd_used != 'install_handle_from_sysinternals') { %>
         <%= node_stat_count_bar('fd_used', 'fd_total', node, FD_THRESHOLDS) %>
     <% } else { %>
-        <p class="c">handle.exe missing <span class="help" id="handle-exe"></span><sub><%= node.fd_total %> available</sub></p>
+        <p class="c">handle.exe遗漏 <span class="help" id="handle-exe"></span><sub><%= node.fd_total %> 可用</sub></p>
 
     <% } %>
      </td>
@@ -150,7 +150,7 @@
      <td>
 
     <% if (node.mem_limit != 'memory_monitoring_disabled') { %>
-        <%= node_stat_bar('mem_used', 'mem_limit', 'high watermark', node, fmt_bytes_axis,
+        <%= node_stat_bar('mem_used', 'mem_limit', '上限', node, fmt_bytes_axis,
                           node.mem_alarm ? 'red' : 'green',
                           node.mem_alarm ? 'memory-alarm' : null) %>
     <% } else { %>
@@ -162,11 +162,11 @@
      <td>
 
     <% if (node.disk_free_limit != 'disk_free_monitoring_disabled') { %>
-        <%= node_stat_bar('disk_free', 'disk_free_limit', 'low watermark', node, fmt_bytes_axis,
+        <%= node_stat_bar('disk_free', 'disk_free_limit', '下限', node, fmt_bytes_axis,
                           node.disk_free_alarm ? 'red' : 'green',
                           node.disk_free_alarm ? 'disk_free-alarm' : null, true) %>
     <% } else { %>
-         (not available)
+         (不可用)
     <% } %>
      </td>
   <% } %>
@@ -175,24 +175,24 @@
   <% } %>
   <% if (show_column('overview', 'info')) { %>
      <td>
-         <abbr title="Message rates"><%= fmt_string(node.rates_mode) %></abbr>
+         <!-- <abbr title="消息传输速率"><%= fmt_string(node.rates_mode) %></abbr> -->
        <% if (node.type == 'disc') { %>
-         <abbr title="Broker definitions are held on disc.">disc</abbr>
+         <abbr title="代理定义在磁盘上保存">磁盘</abbr>
        <% } else { %>
-         <abbr title="Broker definitions are held in RAM. Messages will still be written to disc if necessary.">RAM</abbr>
+         <abbr title="代理定义保存在RAM中。如果需要，消息仍将写入磁盘">RAM</abbr>
        <% } %>
        <%= fmt_plugins_small(node) %>
-        <abbr title="Memory calculation strategy"><%= fmt_string(node.mem_calculation_strategy) %></abbr>
+        <abbr title="内存计算策略"><%= fmt_string(node.mem_calculation_strategy) %></abbr>
      </td>
   <% } %>
   <% if(user_administrator && show_column('overview', 'reset_stats')) { %>
     <td>
       <form action="#/reset_node" method="delete" class="confirm inline-form">
         <input type="hidden" name="node" value="<%= node.name %>"/>
-        <input type="submit" value="This node"/>
+        <input type="submit" value="此节点"/>
       </form>
       <form action="#/reset" method="delete" class="confirm inline-form-right">
-          <input type="submit" value="All nodes"/>
+          <input type="submit" value="所有节点"/>
       </form>
   <% } %>
 <% } %>
@@ -204,17 +204,17 @@
 </div>
 
 <div class="section-hidden">
-<h2>Ports and contexts</h2>
+<h2>端口与上下文 </h2>
 <div class="hider updatable">
-<h3>Listening ports</h3>
+<h3>监听端口</h3>
 <table class="list">
   <tr>
-    <th>Protocol</th>
+    <th>协议</th>
 <% if (nodes_interesting) { %>
-    <th>Node</th>
+    <th>节点</th>
 <% } %>
-    <th>Bound to</th>
-    <th>Port</th>
+    <th>绑定</th>
+    <th>端口</th>
   </tr>
   <%
       for (var i = 0; i < overview.listeners.length; i++) {
@@ -230,17 +230,17 @@
   </tr>
   <% } %>
 </table>
-<h3>Web contexts</h3>
+<h3>网络环境</h3>
 <table class="list">
   <tr>
-    <th>Context</th>
+    <th>环境</th>
 <% if (nodes_interesting) { %>
-    <th>Node</th>
+    <th>节点</th>
 <% } %>
-    <th>Bound to</th>
-    <th>Port</th>
-    <th>SSL</th>
-    <th>Path</th>
+    <th>绑定</th>
+    <th>端口</th>
+    <th>加密套接字</th>
+    <th>路径</th>
   </tr>
   <%
     for (var i = 0; i < overview.contexts.length; i++) {
@@ -262,19 +262,19 @@
 </div>
 
 <div class="section-hidden administrator-only">
-<h2>Export definitions</h2>
+<h2>导出定义</h2>
 <div class="hider">
     <table class="two-col-layout">
       <tr>
         <td>
           <p>
-            <label for="download-filename">Filename for download:</label><br/>
+            <label for="download-filename">文件下载：</label><br/>
             <input type="text" id="download-filename" value="<%= fmt_download_filename(overview.node) %>" class="wide" />
           </p>
         </td>
         <td>
           <p>
-            <button id="download-definitions">Download broker definitions</button>
+            <button id="download-definitions">下载代理定义</button>
             <span class="help" id="export-definitions"></span>
           </p>
         </td>
@@ -282,9 +282,9 @@
       <tr>
         <td>
             <% if (vhosts_interesting) { %>
-          <label>Virtual host:</label>
+          <label>虚拟主机:</label>
             <select name="vhost-download">
-              <option value="all">All</option>
+              <option value="all">全部</option>
               <% for (var i = 0; i < vhosts.length; i++) { %>
               <option value="<%= fmt_string(vhosts[i].name) %>"><%= fmt_string(vhosts[i].name) %></option>
               <% } %>
@@ -299,20 +299,20 @@
 </div>
 
 <div class="section-hidden administrator-only">
-<h2>Import definitions</h2>
+<h2>导入定义</h2>
 <div class="hider">
   <form  method="post" enctype="multipart/form-data">
     <table class="two-col-layout">
       <tr>
         <td>
           <p>
-            <label>Definitions file:</label><br/>
+            <label>上传定义文件:</label><br/>
             <input type="file" name="file"/>
           </p>
         </td>
         <td>
           <p>
-            <input type="submit" value="Upload broker definitions" onclick="submit_import($(this).closest('form')[0]); return false"/>
+            <input type="submit" value="上传代理定义" onclick="submit_import($(this).closest('form')[0]); return false"/>
             <span class="help" id="import-definitions"></span>
           </p>
         </td>
@@ -320,7 +320,7 @@
       <tr>
         <td>
          <% if (vhosts_interesting) { %>
-          <label>Virtual host:</label>
+          <label>虚拟主机</label>
             <select name="vhost-upload">
               <option value="all">All</option>
               <% for (var i = 0; i < vhosts.length; i++) { %>
@@ -340,16 +340,13 @@
 
 <% if (overview.rates_mode == 'none') { %>
 <div class="section-hidden">
-<h2>Message rates disabled</h2>
+<h2>禁用消息速率 </h2>
 <div class="hider">
 <p>
-  Message rates are currently disabled.
+  前消息速率已禁用。
 </p>
-<p>
-  To re-enable message rates, edit your configuration file and
-  set <code>rates_mode</code> to <code>basic</code>
-  or <code>detailed</code> in the <code>rabbitmq_management</code>
-  application
+<p>若要重新启用消息速率，请编辑配置文件和设置<code>速率模式 </code> 到 <code>基本的</code>
+  或 <code>详细的</code>在应用中
 </p>
 </div>
 </div>

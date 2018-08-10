@@ -3,115 +3,115 @@
  <thead>
   <tr>
 <% if (mode == 'standalone') { %>
-    <%= group_heading('channels', 'Overview', [true, vhosts_interesting, nodes_interesting]) %>
+    <%= group_heading('channels', '概览', [true, vhosts_interesting, nodes_interesting]) %>
 <% } else { %>
-    <%= group_heading('channels', 'Overview', [true]) %>
+    <%= group_heading('channels', '概览', [true]) %>
 <% } %>
-    <%= group_heading('channels', 'Details', []) %>
-    <%= group_heading('channels', 'Transactions', []) %>
+    <%= group_heading('channels', '细节', []) %>
+    <%= group_heading('channels', '事务', []) %>
 <% if (rates_mode != 'none') { %>
-    <%= group_heading('channels', 'Message rates', []) %>
+    <%= group_heading('channels', '消息速率', []) %>
 <% } %>
     <th class="plus-minus"><span class="popup-options-link" title="Click to change columns" type="columns" for="channels">+/-</span></th>
   </tr>
   <tr>
 <% if (mode == 'standalone') { %>
-    <th><%= fmt_sort('Channel',         'name') %></th>
+    <th><%= fmt_sort('频道',         'name') %></th>
 <% if (nodes_interesting) { %>
-    <th><%= fmt_sort('Node',            'node') %></th>
+    <th><%= fmt_sort('节点',            'node') %></th>
 <% } %>
 <% if (vhosts_interesting) { %>
-    <th><%= fmt_sort('Virtual host',    'vhost') %></th>
+    <th><%= fmt_sort('虚拟机',    'vhost') %></th>
 <% } %>
 <% if (show_column('channels', 'user')) { %>
-    <th><%= fmt_sort('User name',       'user') %></th>
+    <th><%= fmt_sort('用户名',       'user') %></th>
 <% } %>
 <% if (show_column('channels', 'mode')) { %>
-    <th>Mode <span class="help" id="channel-mode"></span></th>
+    <th>模式 <span class="help" id="channel-mode"></span></th>
 <% } %>
 <% if (show_column('channels', 'state')) { %>
-    <th><%= fmt_sort('State',           'state') %></th>
+    <th><%= fmt_sort('状态',           'state') %></th>
 <% } %>
 <% if (show_column('channels', 'msgs-unconfirmed')) { %>
-    <th><%= fmt_sort('Unconfirmed',     'messages_unconfirmed') %></th>
+    <th><%= fmt_sort('未经证实的',     'messages_unconfirmed') %></th>
 <% } %>
 <% if (show_column('channels', 'prefetch')) { %>
-    <th>Prefetch <span class="help" id="channel-prefetch"></span></th>
+    <th>预取  <span class="help" id="channel-prefetch"></span></th>
 <% } %>
 <% if (show_column('channels', 'msgs-unacked')) { %>
-    <th><%= fmt_sort('Unacked',         'messages_unacknowledged') %></th>
+    <th><%= fmt_sort('等待',         'messages_unacknowledged') %></th>
 <% } %>
 <% if (show_column('channels', 'msgs-uncommitted')) { %>
-    <th><%= fmt_sort('Uncommitted msgs', 'messages_uncommitted') %></th>
+    <th><%= fmt_sort('未提交信息', 'messages_uncommitted') %></th>
 <% } %>
 <% if (show_column('channels', 'acks-uncommitted')) { %>
-    <th><%= fmt_sort('Uncommitted acks', 'acks_uncommitted') %></th>
+    <th><%= fmt_sort('未提交响应', 'acks_uncommitted') %></th>
 <% } %>
 <% if (rates_mode != 'none') { %>
 <% if (show_column('channels', 'rate-publish')) { %>
-    <th><%= fmt_sort('publish', 'message_stats.publish_details.rate') %></th>
+    <th><%= fmt_sort('发布', 'message_stats.publish_details.rate') %></th>
 <% } %>
 <% if (show_column('channels', 'rate-confirm')) { %>
-    <th><%= fmt_sort('confirm', 'message_stats.confirm_details.rate') %></th>
+    <th><%= fmt_sort('证实', 'message_stats.confirm_details.rate') %></th>
 <% } %>
 <% if (show_column('channels', 'rate-return')) { %>
-    <th><%= fmt_sort('return (mandatory)', 'message_stats.return_unroutable_details.rate') %></th>
+    <th><%= fmt_sort('强制退回', 'message_stats.return_unroutable_details.rate') %></th>
 <% } %>
 <% if (show_column('channels', 'rate-deliver')) { %>
-    <th><%= fmt_sort('deliver / get', 'message_stats.deliver_get_details.rate') %></th>
+    <th><%= fmt_sort('传输 / 获取', 'message_stats.deliver_get_details.rate') %></th>
 <% } %>
 <% if (show_column('channels', 'rate-redeliver')) { %>
-    <th><%= fmt_sort('redelivered', 'message_stats.redeliver_details.rate') %></th>
+    <th><%= fmt_sort(' 重发', 'message_stats.redeliver_details.rate') %></th>
 <% } %>
 <% if (show_column('channels', 'rate-ack')) { %>
-    <th><%= fmt_sort('ack', 'message_stats.ack_details.rate') %></th>
+    <th><%= fmt_sort('响应', 'message_stats.ack_details.rate') %></th>
 <% } %>
 <% } %>
 <% } else { %>
 <!-- TODO make sortable after bug 23401 -->
-    <th>Channel</th>
+    <th>频道</th>
 <% if (show_column('channels', 'user')) { %>
-    <th>User name</th>
+    <th>用户名</th>
 <% } %>
 <% if (show_column('channels', 'mode')) { %>
-    <th>Mode <span class="help" id="channel-mode"></span></th>
+    <th>模式 <span class="help" id="channel-mode"></span></th>
 <% } %>
 <% if (show_column('channels', 'state')) { %>
-    <th>State</th>
+    <th>状态</th>
 <% } %>
 <% if (show_column('channels', 'msgs-unconfirmed')) { %>
-    <th>Unconfirmed</th>
+    <th>未验证</th>
 <% } %>
 <% if (show_column('channels', 'prefetch')) { %>
-    <th>Prefetch <span class="help" id="channel-prefetch"></span></th>
+    <th>预取 <span class="help" id="channel-prefetch"></span></th>
 <% } %>
 <% if (show_column('channels', 'msgs-unacked')) { %>
-    <th>Unacked</th>
+    <th>等待</th>
 <% } %>
 <% if (show_column('channels', 'msgs-uncommitted')) { %>
-    <th>Uncommitted msgs</th>
+    <th>未提交信息</th>
 <% } %>
 <% if (show_column('channels', 'acks-uncommitted')) { %>
-    <th>Uncommitted acks</th>
+    <th>未提交相应</th>
 <% } %>
 <% if (rates_mode != 'none') { %>
 <% if (show_column('channels', 'rate-publish')) { %>
-    <th>publish</th>
+    <th>发布</th>
 <% } %>
 <% if (show_column('channels', 'rate-confirm')) { %>
-    <th>confirm</th>
+    <th>验证</th>
 <% } %>
 <% if (show_column('channels', 'rate-return')) { %>
-    <th>return (mandatory)</th>
+    <th>强制退回</th>
 <% } %>
 <% if (show_column('channels', 'rate-deliver')) { %>
-    <th>deliver / get</th>
+    <th>传输 / 获取</th>
 <% } %>
 <% if (show_column('channels', 'rate-redeliver')) { %>
-    <th>redelivered</th>
+    <th>重发</th>
 <% } %>
 <% if (show_column('channels', 'rate-ack')) { %>
-    <th>ack</th>
+    <th>响应</th>
 <% } %>
 <% } %>
 <% } %>
@@ -190,5 +190,5 @@
  </tbody>
 </table>
 <% } else { %>
-  <p>... no channels ...</p>
+  <p>... 无频道 ...</p>
 <% } %>

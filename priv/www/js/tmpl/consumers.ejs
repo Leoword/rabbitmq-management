@@ -3,16 +3,16 @@
       <thead>
         <tr>
 <% if (mode == 'queue') { %>
-          <th>Channel</th>
-          <th>Consumer tag</th>
+          <th>频道</th>
+          <th>消费者标签</th>
 <% } else { %>
-          <th>Consumer tag</th>
-          <th>Queue</th>
+          <th>消费者标签</th>
+          <th>队列</th>
 <% } %>
-          <th>Ack required</th>
-          <th>Exclusive</th>
-          <th>Prefetch count</th>
-          <th>Arguments</th>
+          <th>要求正确应答</th>
+          <th>专用的</th>
+          <th>预取计数</th>
+          <th>参数</th>
         </tr>
       </thead>
 <%
@@ -35,5 +35,5 @@
 <% } %>
     </table>
 <% } else { %>
-  <p>... no consumers ...</p>
+  <p>... 无消费者 ...</p>
 <% } %>

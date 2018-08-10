@@ -11,18 +11,15 @@
    if (partitions.length > 0) {
 %>
 <p class="status-error">
-  Network partition detected<br/><br/>
-  Mnesia reports that this RabbitMQ cluster has experienced a
-  network partition. There is a risk of losing data. Please read
-  <a href="http://www.rabbitmq.com/partitions.html">RabbitMQ
-  documentation about network partitions and the possible solutions</a>.
+  检测到网络分区<br/><br/>
+  报告说，这个集群经历了网络分区。有丢失数据的风险。
 </p>
 <p>
-  The nature of the partition is as follows:
+分区的性质如下： 
 </p>
   <table class="list">
     <tr>
-      <th>Node</th><th>Was partitioned from</th>
+      <th>节点</th><th>被划分为</th>
     </tr>
 
 <%
@@ -43,15 +40,7 @@
 <% } %>
   </table>
 <p>
-  While running in this partitioned state, changes (such as queue or
-  exchange declaration and binding) which take place in one partition
-  will not be visible to other partition(s). Other behaviour is not
-  guaranteed.
-</p>
-<p>
-  <a target="_blank"
-  href="http://www.rabbitmq.com/partitions.html">More information on
-  network partitions.</a>
+  在该分区状态下运行时，更改（如队列或在一个分区中发生的交换声明和绑定）将不会对其他分区可见，其他行为不是放心。
 </p>
 <% } %>
 <%
@@ -70,14 +59,13 @@
    if (ticktimes_unequal) {
 %>
 <p class="status-error">
-  The <code>kernel</code> <code>net_ticktime</code> values are set
-  differently for different nodes in this cluster.
+  <code>内核</code> <code>心跳检测</code> 的值不同节点不同。
 </p>
 <p>
-  The values are:
+  值是：
 </p>
   <table class="list">
-    <tr><th>Node</th><th>net_ticktime</th></tr>
+    <tr><th>节点</th><th>心跳检测</th></tr>
 <%
    for (var i = 0; i < nodes.length; i++) {
 %>
@@ -90,14 +78,7 @@
 %>
   </table>
 <p>
-  This is a dangerous configuration; use of substantially
-  unequal <code>net_timetime</code> values can lead to partitions
-  being falsely detected.
-</p>
-<p>
-  <a target="_blank"
-  href="http://www.rabbitmq.com/nettick.html">More information on
-  <code>net_ticktime</code>.</a>
+  这是一种危险的配置；实质上的使用不平等的 <code>心跳检测</code> 值可以导致分区被错误地发现。
 </p>
 <%
    }

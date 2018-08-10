@@ -2,13 +2,13 @@
   if (binary == "not_available") {
 %>
 <p class="warning">
-  Binary statistics not available.
+  二进制统计不可用 
 </p>
 <% } else { %>
 <%
   var sections = {'queue_procs'         : ['queue',  'Queues'],
                   'queue_slave_procs'   : ['queue',  'Queues (slaves)'],
-                  'connection_readers'  : ['conn',   'Connection readers'],
+                  'connection_readers'  : ['conn',   'Connection readers'], 
                   'connection_writers'  : ['conn',   'Connection writers'],
                   'connection_channels' : ['conn',   'Connection channels'],
                   'connection_other'    : ['conn',   'Connections (other)'],
@@ -22,31 +22,31 @@
 <span class="clear">&nbsp;</span>
 <div class="box">
 <%
-var key = [[{name: 'Queues', colour: 'queue',
-             keys: [['queue_procs',         'queues'],
-                    ['queue_slave_procs',   'slaves']]}],
+var key = [[{name: '队列', colour: 'queue',
+             keys: [['queue_procs',         '队列'],
+                    ['queue_slave_procs',   '原型']]}],
 
-           [{name: 'Connections', colour: 'conn',
-             keys: [['connection_readers',  'readers'],
-                    ['connection_writers',  'writers'],
-                    ['connection_channels', 'channels'],
-                    ['connection_other',    'other']]}],
+           [{name: '连接', colour: 'conn',
+             keys: [['connection_readers',  '读'],
+                    ['connection_writers',  '写'],
+                    ['connection_channels', '频道'],
+                    ['connection_other',    '其他']]}],
 
-           [{name: 'Tables', colour: 'table',
-             keys: [['msg_index',           'message store index'],
-                    ['mgmt_db',             'management database']]}],
+           [{name: '表', colour: 'table',
+             keys: [['msg_index',           '信息存储索引'],
+                    ['mgmt_db',             '管理数据库']]}],
 
-           [{name: 'Processes', colour: 'proc',
-             keys: [['plugins',             'plugins']]},
+           [{name: '进程', colour: 'proc',
+             keys: [['plugins',             '插件']]},
             {name: 'System', colour: 'system',
-             keys: [['other',               'other']]}]];
+             keys: [['other',               '其他']]}]];
 %>
 <%= format('memory-table', {key: key, memory: binary}) %>
 </div>
 
 <div class="memory-info">
-  Last updated: <b><%= fmt_date(new Date()) %></b>.<br/>
-  Total referenced binaries at last update: <b><%= fmt_bytes(total_out[0]) %></b>
+  上次更新: <b><%= fmt_date(new Date()) %></b>.<br/>
+  上次更新的全部二进制映射: <b><%= fmt_bytes(total_out[0]) %></b>
   <span class="help" id="binary-use"></span>
 </div>
 

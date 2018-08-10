@@ -1,19 +1,19 @@
 <div class="section">
-  <h2>Topic permissions</h2>
+  <h2>主题权限</h2>
   <div class="hider">
-    <h3>Current topic permissions</h3>
+    <h3>当前主题权限</h3>
     <% if (topic_permissions.length > 0) { %>
     <table class="list">
       <thead>
         <tr>
 <% if (mode == 'vhost') { %>
-          <th>User</th>
+          <th>用户</th>
 <% } else { %>
-          <th>Virtual host</th>
+          <th>虚拟主机</th>
 <% } %>
-          <th>Exchange</th>
-          <th>Write regexp</th>
-          <th>Read regexp</th>
+          <th>交换机</th>
+          <th>写正则表达式</th>
+          <th>读正则表达式</th>
           <th></th>
         </tr>
       </thead>
@@ -36,7 +36,7 @@ for (var i = 0; i < topic_permissions.length; i++) {
                  <input type="hidden" name="username" value="<%= fmt_string(permission.user) %>"/>
                  <input type="hidden" name="vhost" value="<%= fmt_string(permission.vhost) %>"/>
                  <input type="hidden" name="exchange" value="<%= fmt_exchange_url(permission.exchange) %>"/>
-                 <input type="submit" value="Clear"/>
+                 <input type="submit" value="清除"/>
                </form>
              </td>
            </tr>
@@ -44,15 +44,15 @@ for (var i = 0; i < topic_permissions.length; i++) {
       </tbody>
     </table>
     <% } else { %>
-      <p>... no topic permissions ...</p>
+      <p>... 无主题权限 ...</p>
     <% } %>
 
-<h3>Set topic permission</h3>
+<h3>设置主题权限</h3>
     <form action="#/topic-permissions" method="put">
       <table class="form">
         <tr>
 <% if (mode == 'vhost') { %>
-          <th>User</th>
+          <th>用户</th>
           <td>
             <input type="hidden" name="vhost" value="<%= fmt_string(parent.name) %>"/>
             <select name="username">
@@ -62,7 +62,7 @@ for (var i = 0; i < topic_permissions.length; i++) {
             </select>
           </td>
 <% } else { %>
-          <th><label>Virtual Host:</label></th>
+          <th><label>虚拟主机:</label></th>
           <td>
             <input type="hidden" name="username" value="<%= fmt_string(parent.name) %>"/>
             <select name="vhost" class="list-exchanges">
@@ -74,7 +74,7 @@ for (var i = 0; i < topic_permissions.length; i++) {
 <% } %>
         </tr>
         <tr>
-          <th><label>Exchange:</label></th>
+          <th><label>交换机:</label></th>
           <td>
           <div id='list-exchanges'>
             <%= format('list-exchanges', {'exchanges': exchanges}) %>
@@ -82,15 +82,15 @@ for (var i = 0; i < topic_permissions.length; i++) {
           </td>
         </tr>
         <tr>
-          <th><label>Write regexp:</label></th>
+          <th><label>写正则表达式:</label></th>
           <td><input type="text" name="write" value=".*"/></td>
         </tr>
         <tr>
-          <th><label>Read regexp:</label></th>
+          <th><label>读正则表达式:</label></th>
           <td><input type="text" name="read" value=".*"/></td>
         </tr>
       </table>
-      <input type="submit" value="Set topic permission"/>
+      <input type="submit" value="设置主题权限"/>
     </form>
   </div>
 </div>

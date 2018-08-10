@@ -6,17 +6,17 @@
 <table class="list">
   <tr>
 <% if (mode == 'channel') { %>
-    <th>Exchange</th>
+    <th>交换机</th>
 <% } else if (mode == 'exchange-incoming') { %>
-    <th>Channel</th>
+    <th>频道</th>
 <% } else if (mode == 'exchange-outgoing') { %>
-    <th>Queue</th>
+    <th>队列</th>
 <% } else { %>
-    <th>Exchange</th>
+    <th>交换机</th>
 <% } %>
-    <th>publish</th>
+    <th>发布</th>
 <% if (col_confirm) { %>
-    <th>confirm</th>
+    <th>认证</th>
 <% } %>
   </tr>
 <%
@@ -42,5 +42,5 @@
 <% } %>
 </table>
 <% } else { %>
-<p> ... no publishes ...</p>
+<p> ... 无发布 ...</p>
 <% } %>

@@ -1,89 +1,89 @@
 
-<h1>Queues</h1>
+<h1>队列</h1>
 <div class="section">
-  <%= pagiante_ui(queues, 'queues') %>
+  <%= pagiante_ui(queues, '队列') %>
 </div>
 <div class="updatable">
 <% if (queues.items.length > 0) { %>
 <table class="list">
  <thead>
   <tr>
-    <%= group_heading('queues', 'Overview', [vhosts_interesting, nodes_interesting, true]) %>
-    <%= group_heading('queues', 'Messages', []) %>
-    <%= group_heading('queues', 'Message bytes', []) %>
+    <%= group_heading('queues', '概览', [vhosts_interesting, nodes_interesting, true]) %>
+    <%= group_heading('queues', '消息', []) %>
+    <%= group_heading('queues', '消息字节', []) %>
 <% if (rates_mode != 'none') { %>
-    <%= group_heading('queues', 'Message rates', []) %>
+    <%= group_heading('queues', '消息速率', []) %>
 <% } %>
     <th class="plus-minus"><span class="popup-options-link" title="Click to change columns" type="columns" for="queues">+/-</span></th>
   </tr>
   <tr>
 <% if (vhosts_interesting) { %>
-    <th><%= fmt_sort('Virtual host', 'vhost') %></th>
+    <th><%= fmt_sort('虚拟主机', 'vhost') %></th>
 <% } %>
-    <th><%= fmt_sort('Name',         'name') %></th>
+    <th><%= fmt_sort('名称',         'name') %></th>
 <% if (nodes_interesting) { %>
-    <th><%= fmt_sort('Node',         'node') %></th>
+    <th><%= fmt_sort('节点',         'node') %></th>
 <% } %>
 <% if (show_column('queues', 'features')) { %>
-    <th>Features</th>
+    <th>特征 </th>
 <% } %>
 <% if (show_column('queues', 'features_no_policy')) { %>
-    <th>Features</th>
+    <th>特征 </th>
 <% } %>
 <% if (show_column('queues', 'policy')) { %>
-    <th><%= fmt_sort('Policy','policy') %></th>
+    <th><%= fmt_sort('策略','policy') %></th>
 <% } %>
 <% if (show_column('queues', 'consumers')) { %>
-    <th><%= fmt_sort('Consumers',    'consumers') %></th>
+    <th><%= fmt_sort('消费者',    'consumers') %></th>
 <% } %>
 <% if (show_column('queues', 'consumer_utilisation')) { %>
-    <th><%= fmt_sort('Consumer utilisation', 'consumer_utilisation') %></th>
+    <th><%= fmt_sort('消费者利用率', 'consumer_utilisation') %></th>
 <% } %>
 <% if (show_column('queues', 'state')) { %>
-    <th><%= fmt_sort('State',        'state') %></th>
+    <th><%= fmt_sort('状态',        'state') %></th>
 <% } %>
 <% if (show_column('queues', 'msgs-ready')) { %>
-    <th><%= fmt_sort('Ready',        'messages_ready') %></th>
+    <th><%= fmt_sort('就绪',        'messages_ready') %></th>
 <% } %>
 <% if (show_column('queues', 'msgs-unacked')) { %>
-    <th><%= fmt_sort('Unacked',      'messages_unacknowledged') %></th>
+    <th><%= fmt_sort('等待',      'messages_unacknowledged') %></th>
 <% } %>
 <% if (show_column('queues', 'msgs-ram')) { %>
-    <th><%= fmt_sort('In Memory',    'messages_ram') %></th>
+    <th><%= fmt_sort('内存',    'messages_ram') %></th>
 <% } %>
 <% if (show_column('queues', 'msgs-persistent')) { %>
-    <th><%= fmt_sort('Persistent',   'messages_persistent') %></th>
+    <th><%= fmt_sort('持久',   'messages_persistent') %></th>
 <% } %>
 <% if (show_column('queues', 'msgs-total')) { %>
-    <th><%= fmt_sort('Total',        'messages') %></th>
+    <th><%= fmt_sort('全部',        'messages') %></th>
 <% } %>
 <% if (show_column('queues', 'msg-bytes-ready')) { %>
-    <th><%= fmt_sort('Ready',        'message_bytes_ready') %></th>
+    <th><%= fmt_sort('就绪',        'message_bytes_ready') %></th>
 <% } %>
 <% if (show_column('queues', 'msg-bytes-unacked')) { %>
-    <th><%= fmt_sort('Unacked',      'message_bytes_unacknowledged') %></th>
+    <th><%= fmt_sort('等待',      'message_bytes_unacknowledged') %></th>
 <% } %>
 <% if (show_column('queues', 'msg-bytes-ram')) { %>
-    <th><%= fmt_sort('In Memory',    'message_bytes_ram') %></th>
+    <th><%= fmt_sort('内存中',    'message_bytes_ram') %></th>
 <% } %>
 <% if (show_column('queues', 'msg-bytes-persistent')) { %>
-    <th><%= fmt_sort('Persistent',   'message_bytes_persistent') %></th>
+    <th><%= fmt_sort('持久存储',   'message_bytes_persistent') %></th>
 <% } %>
 <% if (show_column('queues', 'msg-bytes-total')) { %>
-    <th><%= fmt_sort('Total',        'message_bytes') %></th>
+    <th><%= fmt_sort('全部',        'message_bytes') %></th>
 <% } %>
 <% if (rates_mode != 'none') { %>
   <% if (show_column('queues', 'rate-incoming')) { %>
-    <th><%= fmt_sort('incoming', 'message_stats.publish_details.rate') %></th>
+    <th><%= fmt_sort('进入队列', 'message_stats.publish_details.rate') %></th>
   <% } %>
   <% if (show_column('queues', 'rate-deliver')) { %>
-    <th><%= fmt_sort('deliver / get', 'message_stats.deliver_get_details.rate') %></th>
+    <th><%= fmt_sort('传输 / 获取', 'message_stats.deliver_get_details.rate') %></th>
   <% } %>
   <% if (show_column('queues', 'rate-redeliver')) { %>
-    <th><%= fmt_sort('redelivered', 'message_stats.redeliver_details.rate') %></th>
+    <th><%= fmt_sort('重发', 'message_stats.redeliver_details.rate') %></th>
   <% } %>
   <% if (show_column('queues', 'rate-ack')) { %>
-    <th><%= fmt_sort('ack', 'message_stats.ack_details.rate') %></th>
+    <th><%= fmt_sort('响应', 'message_stats.ack_details.rate') %></th>
   <% } %>
 <% } %>
   </tr>
@@ -179,20 +179,20 @@
  </tbody>
 </table>
 <% } else { %>
-  <p>... no queues ...</p>
+  <p>... 无队列 ...</p>
 <% } %>
   </div>
   </div>
 </div>
 
 <div class="section-hidden">
-  <h2>Add a new queue</h2>
+  <h2>创建队列</h2>
   <div class="hider">
     <form action="#/queues" method="put">
       <table class="form">
 <% if (vhosts_interesting) { %>
         <tr>
-          <th><label>Virtual host:</label></th>
+          <th><label>虚拟主机:</label></th>
           <td>
             <select name="vhost">
               <% for (var i = 0; i < vhosts.length; i++) { %>
@@ -205,15 +205,15 @@
         <tr><td><input type="hidden" name="vhost" value="<%= fmt_string(vhosts[0].name) %>"/></td></tr>
 <% } %>
         <tr>
-          <th><label>Name:</label></th>
+          <th><label>名称:</label></th>
           <td><input type="text" name="name"/><span class="mand">*</span></td>
         </tr>
         <tr>
-          <th><label>Durability:</label></th>
+          <th><label>持久性:</label></th>
           <td>
             <select name="durable">
-              <option value="true">Durable</option>
-              <option value="false">Transient</option>
+              <option value="true">持久</option>
+              <option value="false">瞬时</option>
             </select>
           </td>
         </tr>
@@ -222,7 +222,7 @@
    var nodes = JSON.parse(sync_get('/nodes'));
 %>
         <tr>
-          <th><label>Node:</label></th>
+          <th><label>节点:</label></th>
           <td>
             <select name="node">
               <% for (var i = 0; i < nodes.length; i++) { %>
@@ -233,39 +233,39 @@
         </tr>
 <% } %>
         <tr>
-          <th><label>Auto delete: <span class="help" id="queue-auto-delete"></span></label></th>
+          <th><label>动态删除: <span class="help" id="queue-auto-delete"></span></label></th>
           <td>
             <select name="auto_delete">
-              <option value="false">No</option>
-              <option value="true">Yes</option>
+              <option value="false">否</option>
+              <option value="true">是</option>
             </select>
           </td>
         </tr>
         <tr>
-          <th><label>Arguments:</label></th>
+          <th><label>参数:</label></th>
           <td>
             <div class="multifield" id="arguments"></div>
             <table class="argument-links">
               <tr>
-                <td>Add</td>
+                <td>新建</td>
                 <td>
-                  <span class="argument-link" field="arguments" key="x-message-ttl" type="number">Message TTL</span> <span class="help" id="queue-message-ttl"></span> |
-                  <span class="argument-link" field="arguments" key="x-expires" type="number">Auto expire</span> <span class="help" id="queue-expires"></span> |
-                  <span class="argument-link" field="arguments" key="x-max-length" type="number">Max length</span> <span class="help" id="queue-max-length"></span> |
-                  <span class="argument-link" field="arguments" key="x-max-length-bytes" type="number">Max length bytes</span> <span class="help" id="queue-max-length-bytes"></span> |
-                  <span class="argument-link" field="arguments" key="x-overflow" type="string">Overflow behaviour</span> <span class="help" id="queue-overflow"></span><br/>
-                  <span class="argument-link" field="arguments" key="x-dead-letter-exchange" type="string">Dead letter exchange</span> <span class="help" id="queue-dead-letter-exchange"></span> |
-                  <span class="argument-link" field="arguments" key="x-dead-letter-routing-key" type="string">Dead letter routing key</span> <span class="help" id="queue-dead-letter-routing-key"></span> |
-                  <span class="argument-link" field="arguments" key="x-max-priority" type="number">Maximum priority</span> <span class="help" id="queue-max-priority"></span><br/>
-                  <span class="argument-link" field="arguments" key="x-queue-mode" type="string" value="lazy">Lazy mode</span> <span class="help" id="queue-lazy"></span>
-                  <span class="argument-link" field="arguments" key="x-queue-master-locator" type="string" value="">Master locator</span> <span class="help" id="queue-master-locator"></span>
+                  <span class="argument-link" field="arguments" key="x-message-ttl" type="number">消息TTL</span> <span class="help" id="queue-message-ttl"></span> |
+                  <span class="argument-link" field="arguments" key="x-expires" type="number">自动过期</span> <span class="help" id="queue-expires"></span> |
+                  <span class="argument-link" field="arguments" key="x-max-length" type="number">最大长度</span> <span class="help" id="queue-max-length"></span> |
+                  <span class="argument-link" field="arguments" key="x-max-length-bytes" type="number">最大字节长度</span> <span class="help" id="queue-max-length-bytes"></span> |
+                  <span class="argument-link" field="arguments" key="x-overflow" type="string">溢出行为</span> <span class="help" id="queue-overflow"></span><br/>
+                  <span class="argument-link" field="arguments" key="x-dead-letter-exchange" type="string">死信交换</span> <span class="help" id="queue-dead-letter-exchange"></span> |
+                  <span class="argument-link" field="arguments" key="x-dead-letter-routing-key" type="string">死信路由键</span> <span class="help" id="queue-dead-letter-routing-key"></span> |
+                  <span class="argument-link" field="arguments" key="x-max-priority" type="number">最大优先级</span> <span class="help" id="queue-max-priority"></span><br/>
+                  <span class="argument-link" field="arguments" key="x-queue-mode" type="string" value="lazy">懒惰模式</span> <span class="help" id="queue-lazy"></span>
+                  <span class="argument-link" field="arguments" key="x-queue-master-locator" type="string" value="">主定位器</span> <span class="help" id="queue-master-locator"></span>
                 </td>
               </tr>
             </table>
           </td>
         </tr>
       </table>
-      <input type="submit" value="Add queue"/>
+      <input type="submit" value="新建队列"/>
     </form>
   </div>
 </div>

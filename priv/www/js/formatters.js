@@ -521,34 +521,32 @@ function fmt_object_state(obj) {
     if (obj.idle_since !== undefined) {
         colour = 'grey';
         explanation = 'Idle since ' + obj.idle_since;
-        text = 'idle';
+        text = '闲置';
     }
     // Only connections can be 'blocked' or 'blocking'
     else if (obj.state == 'blocked') {
         colour = 'red';
-        explanation = 'Resource alarm: connection blocked.';
+        explanation = '资源告警：连接被阻塞。';
     }
     else if (obj.state == 'blocking') {
         colour = 'yellow';
-        explanation = 'Resource alarm: connection will block on publish.';
+        explanation = '资源告警：连接将在发布时阻塞。';
     }
     else if (obj.state == 'flow') {
         colour = 'yellow';
-        explanation = 'Publishing rate recently throttled by server.';
+        explanation = '最近发布率被服务器扼杀了。 ';
     }
     else if (obj.state == 'down') {
         colour = 'red';
-        explanation = 'The queue is located on a cluster node or nodes that ' +
-            'are down.';
+        explanation = '队列位于集群节点或向下的节点上。 ';
     }
     else if (obj.state == 'crashed') {
         colour = 'red';
-        explanation = 'The queue has crashed repeatedly and been unable to ' +
-            'restart.';
+        explanation = '队列已多次崩溃，无法重新启动。';
     }
     else if (obj.state == 'stopped') {
         colour = 'red';
-        explanation = 'The queue process was stopped by the vhost supervisor.';
+        explanation = '队列进程由虚拟主机管理器停止。 ';
     }
 
     return fmt_state(colour, text, explanation);
@@ -724,20 +722,20 @@ function filter_ui_pg(items, truncate, appendselect) {
 
     var res = '<div class="filter"><table' +
         (current_filter == '' ? '' : ' class="filter-active"') +
-        '><tr><th>Filter:</th>' +
+        '><tr><th>过滤:</th>' +
         '<td><input id="filter" type="text" value="' +
         fmt_escape_html(current_filter) + '"/>' +
         '<input type="checkbox" name="filter-regex-mode" id="filter-regex-mode"' +
         (current_filter_regex_on ? ' checked' : '') +
-        '/><label for="filter-regex-mode">Regex</label> <span class="help" id="filter-regex"></span>' +
+        '/><label for="filter-regex-mode">正则表达式</label> <span class="help" id="filter-regex"></span>' +
         '</td></tr></table>';
 
     function items_desc(l) {
-        return l == 1 ? (l + ' item') : (l + ' items');
+        return l == 1 ? (l + ' 项') : (l + ' 项');
     }
 
     var selected = current_filter == '' ? (items_desc(items.length)) :
-        (items.length + ' of ' + items_desc(total) + ' selected');
+        (items.length + '共'  + items_desc(total) + ' 选中');
 
 
     selected += appendselect;
@@ -758,11 +756,11 @@ function filter_ui(items) {
      var selected = '';
     if (items.length > current_truncate) {
         selected += '<span id="filter-warning-show"> ' +
-            '(only showing first</span> ';
+            '(只显示一项</span> ';
         items.length = current_truncate;
     }
     else {
-        selected += ', page size up to ';
+        selected += ', 页面大小达到';
     }
    return filter_ui_pg(items, truncate_input, selected);
 
@@ -770,7 +768,7 @@ function filter_ui(items) {
 
 function paginate_header_ui(pages, context){
      var res = '<h2 class="updatable">' ;
-     res += ' All ' + context +' (' + pages.total_count + ((pages.filtered_count != pages.total_count) ?   ' Filtered: ' + pages.filtered_count  : '') +  ')';
+     res += ' 全部 ' + context +' (' + pages.total_count + ((pages.filtered_count != pages.total_count) ?   ' 过滤结果: ' + pages.filtered_count  : '') +  ')';
      res += '</h2>'
     return res;
 }
@@ -778,11 +776,11 @@ function paginate_header_ui(pages, context){
 function pagiante_ui(pages, context){
     var res = paginate_header_ui(pages, context);
     res += '<div class="hider">';
-    res += '<h3>Pagination</h3>';
+    res += '<h3>分页</h3>';
     res += '<div class="filter">';
     res += '<table class="updatable">';
     res += '<tr>'
-    res += '<th><label for="'+ context +'-page">Page </label> <select id="'+ context +'-page" class="pagination_class pagination_class_select"  >';
+    res += '<th><label for="'+ context +'-page">页面 </label> <select id="'+ context +'-page" class="pagination_class pagination_class_select"  >';
     var page =  fmt_page_number_request(context, pages.page);
     if (pages.page_count > 0 &&  page > pages.page_count){
            page = pages.page_count;
@@ -796,18 +794,18 @@ function pagiante_ui(pages, context){
     res +=    '<option value="' + i + '"> ' + i + '</option>';
              } };
     res += '</select> </th>';
-    res += '<th><label for="'+ context +'-pageof">of </label>  ' + pages.page_count +'</th>';
-    res += '<th><span><label for="'+ context +'-name"> - Filter: </label> <input id="'+ context +'-name"  data-page-start="1"  class="pagination_class pagination_class_input" type="text"' ;
+    res += '<th><label for="'+ context +'-pageof">共 </label>  ' + pages.page_count +'</th>';
+    res += '<th><span><label for="'+ context +'-name"> - 过滤结果: </label> <input id="'+ context +'-name"  data-page-start="1"  class="pagination_class pagination_class_input" type="text"' ;
     res +=   'value = ' + fmt_filter_name_request(context, "") + '>' ;
     res +=   '</input></th></span>' ;
 
     res += '<th> <input type="checkbox" data-page-start="1" class="pagination_class pagination_class_checkbox" id="'+ context +'-filter-regex-mode"' ;
 
-    res += fmt_regex_request(context, "") + '></input> <label for="filter-regex-mode">Regex</label> <span class="help" id="filter-regex"></span></th>' ;
+    res += fmt_regex_request(context, "") + '></input> <label for="filter-regex-mode">正则匹配</label> <span class="help" id="filter-regex"></span></th>' ;
 
     res +=' </table>' ;
     res += '<p id="filter-truncate"><span class="updatable">';
-    res += '<span><label for="'+ context +'-pagesize"> Displaying ' + pages.item_count + '  item'+ ((pages.item_count > 1) ? 's' : '' ) + ' , page size up to: </label> ';
+    res += '<span><label for="'+ context +'-pagesize"> 显示 ' + pages.item_count + '  条'+ ((pages.item_count > 1) ? 's' : '' ) + ' , 页面大小达到 : </label> ';
     res +=       ' <input id="'+ context +'-pagesize" data-page-start="1" class="pagination_class shortinput pagination_class_input" type="text" ';
     res +=   'value = "' +  fmt_page_size_request(context, pages.page_size) +'"';
     res +=   'onkeypress = "return isNumberKey(event)"> </input></span></p>' ;
@@ -848,6 +846,8 @@ function group_count(mode, group, bools) {
     }
 
     var options = COLUMNS[mode][group];
+
+    console.log(mode, group, options);
     for (var i = 0; i < options.length; i++) {
         var column = options[i][0];
         if (show_column(mode, column)) count++;

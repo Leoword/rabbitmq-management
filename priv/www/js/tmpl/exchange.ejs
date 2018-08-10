@@ -1,23 +1,23 @@
-<h1>Exchange: <b><%= fmt_exchange(exchange.name) %></b><%= fmt_maybe_vhost(exchange.vhost) %></h1>
+<h1>交换机: <b><%= fmt_exchange(exchange.name) %></b><%= fmt_maybe_vhost(exchange.vhost) %></h1>
 
 <div class="section">
-  <h2>Overview</h2>
+  <h2>概览</h2>
   <div class="hider updatable">
 <% if (rates_mode != 'none') { %>
     <%= message_rates('msg-rates-x', exchange.message_stats) %>
 <% } %>
-    <h3>Details</h3>
+    <h3>信息</h3>
     <table class="facts">
       <tr>
-        <th>Type</th>
+        <th>类型</th>
         <td class="l"><%= fmt_exchange_type(exchange.type) %></td>
       </tr>
       <tr>
-        <th>Features</th>
+        <th>特点</th>
         <td><%= fmt_features(exchange) %></td>
       </tr>
       <tr>
-        <th>Policy</th>
+        <th>策略</th>
         <td><%= link_policy(exchange.vhost, exchange.policy) %></td>
       </tr>
     </table>
@@ -26,7 +26,7 @@
 
 <% if (rates_mode == 'detailed') { %>
 <div class="section-hidden">
-<h2>Message rates breakdown</h2>
+<h2>消息故障速率</h2>
 <div class="hider updatable">
 <table class="two-col-layout">
   <tr>
@@ -50,15 +50,16 @@
 
 
 <div class="section-hidden">
-  <h2>Bindings</h2>
+  <h2>绑定</h2>
   <div class="hider">
 <% if (exchange.name == "") { %>
-  <h3>Default exchange</h3>
+  <h3>默认交换机</h3>
   <p>
     The default exchange is implicitly bound to every queue, with a
     routing key equal to the queue name. It is not possible to
     explicitly bind to, or unbind from the default exchange. It also
     cannot be deleted.
+    默认的交换机隐式绑定到每个队列，用路由队列等于队列名称。不可能显式绑定到默认交换机或解除绑定，它也无法删除。 
   </p>
 <% } else { %>
 <div class="bindings-wrapper">
@@ -66,7 +67,7 @@
   <%= format('bindings', {'mode': 'exchange_destination', 'bindings': bindings_destination}) %>
   <p class="arrow">&dArr;</p>
 <% } %>
-  <p><span class="exchange">This exchange</span></p>
+  <p><span class="exchange">该交换机</span></p>
   <p class="arrow">&dArr;</p>
   <%= format('bindings', {'mode': 'exchange_source', 'bindings': bindings_source}) %>
 </div>
@@ -81,12 +82,12 @@
 
 <% if (exchange.name != "") { %>
 <div class="section-hidden">
-  <h2>Delete this exchange</h2>
+  <h2>删除交换机</h2>
   <div class="hider">
     <form action="#/exchanges" method="delete" class="confirm">
       <input type="hidden" name="vhost" value="<%= fmt_string(exchange.vhost) %>"/>
       <input type="hidden" name="name" value="<%= fmt_exchange_url(exchange.name) %>"/>
-      <input type="submit" value="Delete"/>
+      <input type="submit" value="删除"/>
     </form>
   </div>
 </div>

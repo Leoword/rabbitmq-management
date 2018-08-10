@@ -3,28 +3,27 @@
    var msg = msgs[i];
 %>
 <div class="box">
-<h3>Message <%= i+1 %></h3>
-<p>The server reported <b><%= msg.message_count %></b> messages remaining.</p>
+<h3>消息 <%= i+1 %></h3>
+<p>服务器报告<b><%= msg.message_count %></b> 消息剩余。</p>
 <table class="facts">
   <tr>
-    <th>Exchange</th>
+    <th>交换机</th>
     <td><%= fmt_exchange(msg.exchange) %></td>
   </tr>
   <tr>
-    <th>Routing Key</th>
-    <td><%= fmt_string(msg.routing_key) %></td>
+    <th>路由键<%= fmt_string(msg.routing_key) %></td>
   </tr>
   <tr>
-    <th>Redelivered</th>
+    <th>重发</th>
     <td><%= fmt_boolean(msg.redelivered) %></td>
   </tr>
   <tr>
-    <th>Properties</th>
+    <th>特性</th>
     <td><%= fmt_table_short(msg.properties) %></td>
   </tr>
   <tr>
     <th>
-      Payload
+      有效载荷
       <sub><%= msg.payload_bytes %> bytes</sub>
       <sub>Encoding: <%= msg.payload_encoding %></sub>
     </th>

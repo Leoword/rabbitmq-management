@@ -1,10 +1,10 @@
 <% if (node.running) { %>
 <table class="list">
     <tr>
-      <th>Name</th>
-      <th>Description</th>
+      <th>名称</th>
+      <th>描述</th>
 <% if (show_enabled) { %>
-      <th>Enabled</th>
+      <th>激活</th>
 <% } %>
     </tr>
     <%
@@ -21,5 +21,5 @@
     <% } %>
 </table>
 <% } else {%>
-<p>...node not running...</p>
+<p>...节点未运行...</p>
 <% } %>
