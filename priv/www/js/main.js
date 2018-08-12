@@ -82,7 +82,7 @@ function check_login() {
         // clear a local storage value used by earlier versions
         clear_pref('auth');
         clear_cookie_value('auth');
-        replace_content('login-status', '<p>Login failed</p>');
+        replace_content('login-status', '<p>登录失败！</p>');
     }
     else {
         replace_content('outer', format('layout', {}));

@@ -847,7 +847,6 @@ function group_count(mode, group, bools) {
 
     var options = COLUMNS[mode][group];
 
-    console.log(mode, group, options);
     for (var i = 0; i < options.length; i++) {
         var column = options[i][0];
         if (show_column(mode, column)) count++;
